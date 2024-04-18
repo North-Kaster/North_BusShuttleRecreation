@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace BusShuttleMVC.Areas.Identity.Pages.Account
 {
@@ -114,9 +115,13 @@ namespace BusShuttleMVC.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-                var claim = new Claim("IsManager", "true");
-                await _userManager.AddClaimAsync(user, claim);
+                // Check if there are any users registered yet
+                var anyUsers = await _userManager.Users.AnyAsync();
 
+                // If no users exist, it's the first user, so add the "IsManager" claim
+                // Otherwise, add the "IsDriver" claim
+                var claim = anyUsers ? new Claim("IsDriver", "true") : new Claim("IsManager", "true");
+                await _userManager.AddClaimsAsync(user, new[] { claim });
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
