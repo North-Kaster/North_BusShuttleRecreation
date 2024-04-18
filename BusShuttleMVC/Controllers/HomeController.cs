@@ -13,17 +13,20 @@ public class HomeController : Controller
     {
         _logger = logger;
     }
-    [Authorize(Policy = "IsManager")]
     public IActionResult Index()
     {
         return View();
     }
     [Authorize(Policy = "isDriver")]
-    public IActionResult Privacy()
+    public IActionResult DriverDashboard()
     {
         return View();
     }
-
+    [Authorize(Policy = "IsManager")]
+    public IActionResult ManagerDashboard()
+    {
+        return View();
+    }
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
