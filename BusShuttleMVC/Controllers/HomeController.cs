@@ -15,7 +15,18 @@ public class HomeController : Controller
     }
     public IActionResult Index()
     {
-        return View();
+        if (User.HasClaim("IsDriver", "true"))
+        {
+            return RedirectToAction("DriverDashboard");
+        }
+        else if (User.HasClaim("IsManager", "true"))
+        {
+            return RedirectToAction("ManagerDashboard");
+        }
+        else
+        {
+            return Redirect("/Identity/Account/Login");
+        }
     }
     [Authorize(Policy = "isDriver")]
     public IActionResult DriverDashboard()
