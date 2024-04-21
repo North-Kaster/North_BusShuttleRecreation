@@ -17,26 +17,16 @@ public class HomeController : Controller
     {
         if (User.HasClaim("IsDriver", "true"))
         {
-            return RedirectToAction("DriverDashboard");
+            return RedirectToAction("DriverDashboard", "Driver");
         }
         else if (User.HasClaim("IsManager", "true"))
         {
-            return RedirectToAction("ManagerDashboard");
+            return RedirectToAction("ManagerDashboard", "Manager");
         }
         else
         {
             return Redirect("/Identity/Account/Login");
         }
-    }
-    [Authorize(Policy = "isDriver")]
-    public IActionResult DriverDashboard()
-    {
-        return View();
-    }
-    [Authorize(Policy = "IsManager")]
-    public IActionResult ManagerDashboard()
-    {
-        return View();
     }
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
