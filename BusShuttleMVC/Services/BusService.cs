@@ -14,7 +14,7 @@ namespace BusShuttleMVC.Services
         {
             return _context.Buses.ToList();
         }
-        public Bus? FindBusByID(int id)
+        public Bus? FindBusByID(Guid id)
         {
             return _context.Buses.Find(id);
         }
@@ -30,6 +30,12 @@ namespace BusShuttleMVC.Services
         public void AddBus(Bus bus)
         {
             _context.Buses.Add(bus);
+            _context.SaveChanges();
+        }
+
+        public void DeleteBus(Bus bus)
+        {
+            _context.Buses.Remove(bus);
             _context.SaveChanges();
         }
     }

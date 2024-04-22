@@ -3,8 +3,6 @@
 }
 <h1>@ViewData["Title"]</h1>
 
-<form method="post" action="/Manager/AddBus">
-    <label for="busNumber">Bus Number:</label>
-    <input type="number" id="busNumber" name="busNumber" required>
-    <input type="submit" value="Add Bus">
-</form>
+<button class="btn btn-primary">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Manager" asp-action="ManageBuses">ManageBuses</a>
+</button>
