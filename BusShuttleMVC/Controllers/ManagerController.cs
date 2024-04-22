@@ -11,11 +11,13 @@ namespace BusShuttleMVC.Controllers
     {
         private readonly IBusService _busService;
         private readonly IBusStopService _busStopService;
+        private readonly IBusLoopService _busLoopService;
 
-        public ManagerController(IBusService busService, IBusStopService busStopService)
+        public ManagerController(IBusService busService, IBusStopService busStopService, IBusLoopService busLoopService)
         {
             _busService = busService;
             _busStopService = busStopService;
+            _busLoopService = busLoopService;
         }
 
         public IActionResult ManagerDashboard()
@@ -31,7 +33,7 @@ namespace BusShuttleMVC.Controllers
         [HttpPost]
         public IActionResult AddBus(int busNumber)
         {
-            var bus = new Bus (Guid.NewGuid(), 0) { BusNumber = busNumber };
+            var bus = new Bus(Guid.NewGuid(), 0) { BusNumber = busNumber };
             _busService.AddBus(bus);
             return RedirectToAction("ManageBuses");
         }
@@ -65,6 +67,25 @@ namespace BusShuttleMVC.Controllers
             }
             return RedirectToAction("ManageBusStops");
         }
+        public IActionResult ManageBusLoops()
+        {
+            return View(_busLoopService.GetAllBusLoops().Select(t => BusLoopViewModel.FromBusLoop(t)));
+        }
+        public IActionResult AddBusLoop(string busLoopName)
+        {
+            var busLoop = new BusLoop(Guid.NewGuid(), busLoopName);
+            _busLoopService.AddBusLoop(busLoop);
+            return RedirectToAction("ManageBusLoops");
+        }
+        public IActionResult DeleteBusLoop(Guid id)
+        {
+            var busLoop = _busLoopService.FindBusLoopByID(id);
+            if (busLoop != null)
+            {
+                _busLoopService.DeleteBusLoop(busLoop);
+            }
+            return RedirectToAction("ManageBusLoops");
+        }
         public IActionResult ManageRoutes()
         {
             return View();
@@ -73,6 +94,6 @@ namespace BusShuttleMVC.Controllers
         {
             return View();
         }
-    
+
     }
 }

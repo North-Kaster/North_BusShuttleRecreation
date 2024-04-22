@@ -8,6 +8,7 @@ public class ApplicationDbContext : IdentityDbContext
 {
     public DbSet<Bus> Buses { get; set; }
     public DbSet<BusStop> BusStops { get; set; }
+    public DbSet<BusLoop> BusLoops { get; set; }
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {

@@ -1,11 +1,11 @@
 namespace DomainModel;
 
-public class Loop 
+public class BusLoop 
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public string Name { get; set; }
 
-    public Loop (int id, string name)
+    public BusLoop (Guid id, string name)
     {
         Id = id;
         Name = name;
