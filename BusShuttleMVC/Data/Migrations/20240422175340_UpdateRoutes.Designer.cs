@@ -3,6 +3,7 @@ using System;
 using BusShuttleMVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusShuttleMVC.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240422175340_UpdateRoutes")]
+    partial class UpdateRoutes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.1");
@@ -55,6 +58,10 @@ namespace BusShuttleMVC.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("StopIds")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -279,24 +286,6 @@ namespace BusShuttleMVC.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("RouteStop", b =>
-                {
-                    b.Property<Guid>("BusRouteId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("BusStopId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("BusRouteId", "BusStopId");
-
-                    b.HasIndex("BusStopId");
-
-                    b.ToTable("RouteStop");
-                });
-
             modelBuilder.Entity("DomainModel.BusLoop", b =>
                 {
                     b.HasOne("DomainModel.BusRoute", "LoopBusRoute")
@@ -357,35 +346,6 @@ namespace BusShuttleMVC.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("RouteStop", b =>
-                {
-                    b.HasOne("DomainModel.BusRoute", "BusRoute")
-                        .WithMany("RouteStops")
-                        .HasForeignKey("BusRouteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DomainModel.BusStop", "BusStop")
-                        .WithMany("RouteStops")
-                        .HasForeignKey("BusStopId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("BusRoute");
-
-                    b.Navigation("BusStop");
-                });
-
-            modelBuilder.Entity("DomainModel.BusRoute", b =>
-                {
-                    b.Navigation("RouteStops");
-                });
-
-            modelBuilder.Entity("DomainModel.BusStop", b =>
-                {
-                    b.Navigation("RouteStops");
                 });
 #pragma warning restore 612, 618
         }

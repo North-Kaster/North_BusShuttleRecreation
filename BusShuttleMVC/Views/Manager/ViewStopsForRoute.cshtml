@@ -1,0 +1,21 @@
+@model IEnumerable<DomainModel.BusStop>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var stop in Model)
+        {
+            <tr>
+                <td>@stop.Name</td>
+                <td>@stop.Latitude</td>
+                <td>@stop.Longitude</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,11 +1,30 @@
-<div class="row text-center">
-    <div class="col-md-4">
-        <h2>Manage Loops</h2>
-    </div>
-    <div class="col-md-4">
-        <h2>Manage Stops</h2>
-    </div>
-    <div class="col-md-4">
-        <h2>Manage Routes</h2>
-    </div>
-</div>
+@model BusShuttleMVC.Models.BusRouteViewModel
+
+<form method="post" asp-action="AddStopToRoute" asp-controller="Manager">
+    <select name="busLoopId">
+        @foreach (var loop in Model.BusLoops)
+        {
+            <option value="@loop.Id">@loop.Name</option>
+        }
+    </select>
+
+    <select name="busStopId">
+        @foreach (var stop in Model.BusStops)
+        {
+            <option value="@stop.Id">@stop.Name</option>
+        }
+    </select>
+
+    <input type="submit" value="Add stop" />
+</form>
+
+<form method="get" asp-action="ViewStopsForRoute" asp-controller="Manager">
+    <select name="loopName">
+        @foreach (var loop in Model.BusLoops)
+        {
+            <option value="@loop.Name">@loop.Name</option>
+        }
+    </select>
+
+    <input type="submit" value="View stops" />
+</form>

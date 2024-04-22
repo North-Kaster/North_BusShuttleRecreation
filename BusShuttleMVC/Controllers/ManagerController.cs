@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using DomainModel;
 using BusShuttleMVC.Models;
 using BusShuttleMVC.Services;
+using BusShuttleMVC.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace BusShuttleMVC.Controllers
 {
@@ -12,12 +14,16 @@ namespace BusShuttleMVC.Controllers
         private readonly IBusService _busService;
         private readonly IBusStopService _busStopService;
         private readonly IBusLoopService _busLoopService;
+        private readonly IBusRouteService _busRouteService;
+        private readonly ApplicationDbContext _context;
 
-        public ManagerController(IBusService busService, IBusStopService busStopService, IBusLoopService busLoopService)
+        public ManagerController(IBusService busService, IBusStopService busStopService, IBusLoopService busLoopService, IBusRouteService busRouteService, ApplicationDbContext context)
         {
             _busService = busService;
             _busStopService = busStopService;
             _busLoopService = busLoopService;
+            _busRouteService = busRouteService;
+            _context = context;
         }
 
         public IActionResult ManagerDashboard()
@@ -73,7 +79,8 @@ namespace BusShuttleMVC.Controllers
         }
         public IActionResult AddBusLoop(string busLoopName)
         {
-            var busLoop = new BusLoop(Guid.NewGuid(), busLoopName);
+            var busRoute = new BusRoute(Guid.NewGuid());
+            var busLoop = new BusLoop(Guid.NewGuid(), busLoopName, busRoute);
             _busLoopService.AddBusLoop(busLoop);
             return RedirectToAction("ManageBusLoops");
         }
@@ -88,7 +95,54 @@ namespace BusShuttleMVC.Controllers
         }
         public IActionResult ManageRoutes()
         {
-            return View();
+            var busLoops = _busLoopService.GetAllBusLoops().Select(t => BusLoopViewModel.FromBusLoop(t));
+            var busStops = _busStopService.GetAllBusStops().Select(t => BusStopViewModel.FromBusStop(t));
+            var busRouteViewModel = new BusRouteViewModel { BusLoops = busLoops, BusStops = busStops };
+            return View(busRouteViewModel);
+        }
+        [HttpPost]
+        public IActionResult AddStopToRoute(Guid busLoopId, Guid busStopId)
+        {
+            var busLoop = _context.BusLoops.Include(bl => bl.LoopBusRoute).FirstOrDefault(bl => bl.Id == busLoopId);
+            if (busLoop == null)
+            {
+                return NotFound($"BusLoop with ID {busLoopId} does not exist.");
+            }
+
+            var busRoute = busLoop.LoopBusRoute;
+            if (busRoute == null)
+            {
+                return NotFound($"BusRoute for BusLoop with ID {busLoopId} does not exist.");
+            }
+
+            var busStop = _context.BusStops.Find(busStopId);
+            if (busStop == null)
+            {
+                return NotFound($"BusStop with ID {busStopId} does not exist.");
+            }
+
+            busRoute.RouteStops.Add(new RouteStop { BusStop = busStop });
+
+            _context.SaveChanges();
+
+            return RedirectToAction("ManageRoutes");
+        }
+
+        public IActionResult ViewStopsForRoute(string loopName)
+        {
+            var busLoop = _context.BusLoops.Include(bl => bl.LoopBusRoute)
+                                        .ThenInclude(br => br.RouteStops)
+                                        .ThenInclude(rs => rs.BusStop)
+                                        .FirstOrDefault(bl => bl.Name == loopName);
+
+            if (busLoop == null)
+            {
+                return NotFound($"BusLoop with name {loopName} does not exist.");
+            }
+
+            var busStops = busLoop.LoopBusRoute.RouteStops.Select(rs => rs.BusStop);
+
+            return View(busStops);
         }
         public IActionResult ManageDrivers()
         {

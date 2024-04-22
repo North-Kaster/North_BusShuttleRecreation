@@ -33,5 +33,15 @@ namespace BusShuttleMVC.Services
             _context.BusLoops.Remove(busLoop);
             _context.SaveChanges();
         }
+         public void AddBusRouteToLoop(Guid busLoopId, BusRoute busRoute)
+        {
+            var busLoop = FindBusLoopByID(busLoopId);
+            if (busLoop != null)
+            {
+                busLoop.BusRouteId = busRoute.Id;
+                busLoop.LoopBusRoute = busRoute;
+                _context.SaveChanges();
+            }
+        }
     }
 }

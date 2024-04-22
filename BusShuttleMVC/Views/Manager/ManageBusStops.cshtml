@@ -41,10 +41,10 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(model => model.Latitude)
+                    @Html.DisplayFor(modelItem => item.Latitude)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(model => model.Longitude)
+                    @Html.DisplayFor(modelItem => item.Longitude)
                 </td>
                 <td>
                     <form asp-action="DeleteBusStop" method="post">

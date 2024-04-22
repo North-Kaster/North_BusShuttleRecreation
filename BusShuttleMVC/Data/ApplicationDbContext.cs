@@ -9,6 +9,24 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Bus> Buses { get; set; }
     public DbSet<BusStop> BusStops { get; set; }
     public DbSet<BusLoop> BusLoops { get; set; }
+    public DbSet<BusRoute> BusRoutes { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder); // Call base implementation
+        modelBuilder.Entity<RouteStop>()
+        .HasKey(rs => new { rs.BusRouteId, rs.BusStopId }); // Composite key
+
+        modelBuilder.Entity<RouteStop>()
+            .HasOne(rs => rs.BusRoute)
+            .WithMany(br => br.RouteStops)
+            .HasForeignKey(rs => rs.BusRouteId);
+
+        modelBuilder.Entity<RouteStop>()
+            .HasOne(rs => rs.BusStop)
+            .WithMany(bs => bs.RouteStops)
+            .HasForeignKey(rs => rs.BusStopId);
+    }
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
