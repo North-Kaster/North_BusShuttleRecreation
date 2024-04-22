@@ -10,10 +10,12 @@ namespace BusShuttleMVC.Controllers
     public class ManagerController : Controller
     {
         private readonly IBusService _busService;
+        private readonly IBusStopService _busStopService;
 
-        public ManagerController(IBusService busService)
+        public ManagerController(IBusService busService, IBusStopService busStopService)
         {
             _busService = busService;
+            _busStopService = busStopService;
         }
 
         public IActionResult ManagerDashboard()
@@ -42,6 +44,34 @@ namespace BusShuttleMVC.Controllers
                 _busService.DeleteBus(bus);
             }
             return RedirectToAction("ManageBuses");
+        }
+
+        public IActionResult ManageBusStops()
+        {
+            return View(_busStopService.GetAllBusStops().Select(t => BusStopViewModel.FromBusStop(t)));
+        }
+        public IActionResult AddBusStop(string busStopName, double latitude, double longitude)
+        {
+            var busStop = new BusStop(Guid.NewGuid(), busStopName, latitude, longitude);
+            _busStopService.AddBusStop(busStop);
+            return RedirectToAction("ManageBusStops");
+        }
+        public IActionResult DeleteBusStop(Guid id)
+        {
+            var busStop = _busStopService.FindBusStopByID(id);
+            if (busStop != null)
+            {
+                _busStopService.DeleteBusStop(busStop);
+            }
+            return RedirectToAction("ManageBusStops");
+        }
+        public IActionResult ManageRoutes()
+        {
+            return View();
+        }
+        public IActionResult ManageDrivers()
+        {
+            return View();
         }
     
     }

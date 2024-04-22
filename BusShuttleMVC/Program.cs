@@ -18,6 +18,7 @@ public class Program
             options.UseSqlite(connectionString));
         builder.Services.AddDatabaseDeveloperPageExceptionFilter();
         builder.Services.AddScoped<IBusService, BusService>();
+        builder.Services.AddScoped<IBusStopService, BusStopService>();
         builder.Services.AddDbContext<ApplicationDbContext>();
 
         builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

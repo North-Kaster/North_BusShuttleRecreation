@@ -10,8 +10,4 @@ public class Bus
         Id = id;
         BusNumber = busNumber;
     }
-    public void Update(int busNumber)
-    {
-        BusNumber = busNumber;
-    }
 }

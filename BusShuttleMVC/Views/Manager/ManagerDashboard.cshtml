@@ -3,6 +3,15 @@
 }
 <h1>@ViewData["Title"]</h1>
 
-<button class="btn btn-primary">
-    <a class="nav-link text-dark" asp-area="" asp-controller="Manager" asp-action="ManageBuses">ManageBuses</a>
-</button>
+<a asp-controller="Manager" asp-action="ManageBuses">
+    <button class="btn btn-primary">Manage Buses</button>
+</a>
+<a asp-controller="Manager" asp-action="ManageRoutes">
+    <button class="btn btn-primary">Manage Routes</button>
+</a>
+<a asp-controller="Manager" asp-action="ManageDrivers">
+    <button class="btn btn-primary">Manage Drivers</button>
+</a>
+<a asp-controller="Manager" asp-action="ManageBusStops">
+    <button class="btn btn-primary">Manage Stops</button>
+</a>

@@ -18,15 +18,6 @@ namespace BusShuttleMVC.Services
         {
             return _context.Buses.Find(id);
         }
-        public void UpdateBusByID(int id, int busNumber)
-        {
-            var bus = _context.Buses.Find(id);
-            if (bus != null)
-            {
-                bus.Update(busNumber);
-                _context.SaveChanges();
-            }
-        }
         public void AddBus(Bus bus)
         {
             _context.Buses.Add(bus);
