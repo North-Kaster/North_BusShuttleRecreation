@@ -2,13 +2,16 @@ namespace DomainModel;
 
 public class Bus
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public int BusNumber { get; set; }
 
-    public static List<Bus> Buses = new List<Bus>();
-
-    public static void AddBus(int busNumber)
+    public Bus(Guid id, int busNumber)
     {
-        Buses.Add(new Bus { BusNumber = busNumber });
+        Id = id;
+        BusNumber = busNumber;
+    }
+    public void Update(int busNumber)
+    {
+        BusNumber = busNumber;
     }
 }
