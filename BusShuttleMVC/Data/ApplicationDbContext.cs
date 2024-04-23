@@ -10,6 +10,7 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<BusStop> BusStops { get; set; }
     public DbSet<BusLoop> BusLoops { get; set; }
     public DbSet<BusRoute> BusRoutes { get; set; }
+    public DbSet<Entry> Entries { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

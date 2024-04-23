@@ -21,6 +21,7 @@ public class Program
         builder.Services.AddScoped<IBusStopService, BusStopService>();
         builder.Services.AddScoped<IBusLoopService, BusLoopService>();
         builder.Services.AddScoped<IBusRouteService, BusRouteService>();
+        builder.Services.AddScoped<IEntryService, EntryService>();
         builder.Services.AddDbContext<ApplicationDbContext>();
 
         builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
