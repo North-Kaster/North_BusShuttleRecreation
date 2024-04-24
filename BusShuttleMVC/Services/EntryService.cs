@@ -11,6 +11,10 @@ namespace BusShuttleMVC.Services
     {
         _context = context;
     }
+    public List<Entry> GetEntries()
+    {
+        return _context.Entries.ToList();
+    }
 
     public async Task<Entry> CreateEntry(Guid id, DateTime timeStamp, int boarded, int leftBehind, string driver, Guid busLoopId, string busNumber, Guid busStopId)
     {

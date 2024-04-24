@@ -1,3 +1,4 @@
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using DomainModel;
@@ -15,14 +16,16 @@ namespace BusShuttleMVC.Controllers
         private readonly IBusStopService _busStopService;
         private readonly IBusLoopService _busLoopService;
         private readonly IBusRouteService _busRouteService;
+        private readonly IEntryService _entryService;
         private readonly ApplicationDbContext _context;
 
-        public ManagerController(IBusService busService, IBusStopService busStopService, IBusLoopService busLoopService, IBusRouteService busRouteService, ApplicationDbContext context)
+        public ManagerController(IBusService busService, IBusStopService busStopService, IBusLoopService busLoopService, IBusRouteService busRouteService, IEntryService entryService, ApplicationDbContext context)
         {
             _busService = busService;
             _busStopService = busStopService;
             _busLoopService = busLoopService;
             _busRouteService = busRouteService;
+            _entryService = entryService;
             _context = context;
         }
 
@@ -150,7 +153,7 @@ namespace BusShuttleMVC.Controllers
         }
         public IActionResult ManageEntries()
         {
-            var entries = _context.Entries.ToList();
+            var entries = _entryService.GetEntries();
 
             var model = new ManageEntryViewModel
             {
@@ -169,5 +172,21 @@ namespace BusShuttleMVC.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public IActionResult DownloadEntriesCSV()
+        {
+            var entries = _entryService.GetEntries(); 
+            var builder = new StringBuilder();
+            builder.AppendLine("Boarded,Left Behind,Bus Stop,Timestamp,Bus Loop,Driver Name,Bus Number");
+
+            foreach (var entry in entries)
+            {
+                var busStopName = _busStopService.FindBusStopByID(entry.BusStopId)?.Name;
+                var busLoopName = _busLoopService.FindBusLoopByID(entry.BusLoopId)?.Name;
+                builder.AppendLine($"{entry.Boarded},{entry.LeftBehind},{busStopName},{entry.Timestamp},{busLoopName},{entry.Driver},{entry.BusNumber}");
+            }
+
+            return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", "Entries.csv");
+        }
     }
 }
