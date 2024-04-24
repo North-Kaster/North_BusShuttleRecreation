@@ -12,10 +12,9 @@ namespace BusShuttleMVC.Services
         _context = context;
     }
 
-    public async Task<Entry> CreateEntry(Guid busLoopId, string busNumber, Guid busStopId, int boarded, int leftBehind)
+    public async Task<Entry> CreateEntry(Guid id, DateTime timeStamp, int boarded, int leftBehind, string driver, Guid busLoopId, string busNumber, Guid busStopId)
     {
-        var entry = new Entry(Guid.NewGuid(), busLoopId, busNumber, busStopId, boarded, leftBehind, DateTime.Now);
-
+        var entry = new Entry(Guid.NewGuid(), DateTime.Now, boarded, leftBehind, driver, busLoopId, busNumber, busStopId);
         _context.Entries.Add(entry);
         await _context.SaveChangesAsync();
 

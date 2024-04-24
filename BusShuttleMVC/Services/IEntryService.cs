@@ -3,6 +3,6 @@ namespace BusShuttleMVC.Services
 {
     public interface IEntryService
     {
-        Task<Entry> CreateEntry(Guid busLoopId, string busNumber, Guid busStopId, int boarded, int leftBehind);
+        Task<Entry> CreateEntry(Guid id, DateTime timeStamp, int boarded, int leftBehind, string driver, Guid busLoopId, string busNumber, Guid busStopId);
     }
 }

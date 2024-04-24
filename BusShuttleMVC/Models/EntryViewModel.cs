@@ -5,11 +5,14 @@ namespace BusShuttleMVC.Models
 {
     public class EntryViewModel
     {
-        public Guid BusLoopId { get; set; }
-        public string BusNumber { get; set; }
-        public Guid BusStopId { get; set; }
         public int Boarded { get; set; }
         public int LeftBehind { get; set; }
+        public string BusStopName { get; set; }
+        public DateTime Timestamp { get; set; }
+        public string BusLoopName { get; set; }
+        public string Driver { get; set; }
+        public string BusNumber { get; set; }
+        
 
         public IEnumerable<BusLoopViewModel> BusLoops { get; set; }
         public IEnumerable<BusViewModel> Buses { get; set; }

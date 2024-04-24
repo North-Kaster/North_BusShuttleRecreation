@@ -1,0 +1,32 @@
+@model BusShuttleMVC.Models.ManageEntryViewModel
+@{
+    ViewData["Title"] = "Manage Entries";
+}
+<h2>@ViewData["Title"]</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Boarded</th>
+            <th>Left Behind</th>
+            <th>Bus Stop</th>
+            <th>Timestamp</th>
+            <th>Bus Loop</th>
+            <th>Driver Name</th>
+            <th>Bus Number</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var entry in Model.Entries)
+        {
+            <tr>
+                <td>@entry.Boarded</td>
+                <td>@entry.LeftBehind</td>
+                <td>@entry.BusStopName</td>
+                <td>@entry.Timestamp</td>
+                <td>@entry.BusLoopName</td>
+                <td>@entry.Driver</td>
+                <td>@entry.BusNumber</td>
+            </tr>
+        }
+    </tbody>
+</table>

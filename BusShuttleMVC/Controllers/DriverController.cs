@@ -48,9 +48,10 @@ namespace BusShuttleMVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateEntry(Guid busLoopId, string busNumber, Guid busStopId, int boarded, int leftBehind)
+        public async Task<IActionResult> CreateEntry(Guid id, DateTime timeStamp, int boarded, int leftBehind, Guid busLoopId, string busNumber, Guid busStopId)
         {
-            var entry = await _entryService.CreateEntry(busLoopId, busNumber, busStopId, boarded, leftBehind);
+            var driver = User.Identity.Name;
+            var entry = await _entryService.CreateEntry(id, timeStamp, boarded, leftBehind, driver, busLoopId, busNumber, busStopId);
             return RedirectToAction("CreateEntry");
         }
     }
