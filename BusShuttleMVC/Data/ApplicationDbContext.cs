@@ -15,8 +15,9 @@ public class ApplicationDbContext : IdentityDbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder); // Call base implementation
+        
         modelBuilder.Entity<RouteStop>()
-        .HasKey(rs => new { rs.BusRouteId, rs.BusStopId }); // Composite key
+            .HasKey(rs => rs.Id);
 
         modelBuilder.Entity<RouteStop>()
             .HasOne(rs => rs.BusRoute)

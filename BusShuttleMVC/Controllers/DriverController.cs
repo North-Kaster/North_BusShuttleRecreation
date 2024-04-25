@@ -16,8 +16,6 @@ namespace BusShuttleMVC.Controllers
         private readonly IBusStopService _busStopService;
         private readonly IBusLoopService _busLoopService;
         private readonly IBusRouteService _busRouteService;
-        private readonly ApplicationDbContext _context;
-
         public DriverController(IEntryService EntryService, IBusService busService, IBusStopService busStopService, IBusLoopService busLoopService, IBusRouteService busRouteService, ApplicationDbContext context)
         {
             _entryService = EntryService;
@@ -25,7 +23,6 @@ namespace BusShuttleMVC.Controllers
             _busStopService = busStopService;
             _busLoopService = busLoopService;
             _busRouteService = busRouteService;
-            _context = context;
         }
 
         public IActionResult DriverDashboard()

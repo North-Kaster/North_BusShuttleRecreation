@@ -3,6 +3,7 @@ using System;
 
 public class RouteStop
 {
+    public Guid Id { get; set; }
     public Guid BusRouteId { get; set; }
     public BusRoute BusRoute { get; set; }
 
