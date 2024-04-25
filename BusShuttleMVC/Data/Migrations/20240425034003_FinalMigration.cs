@@ -5,7 +5,7 @@
 namespace BusShuttleMVC.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateLoopsAgain : Migration
+    public partial class FinalMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

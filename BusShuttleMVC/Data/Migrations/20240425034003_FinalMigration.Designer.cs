@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusShuttleMVC.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240421235910_AddBuses")]
-    partial class AddBuses
+    [Migration("20240425034003_FinalMigration")]
+    partial class FinalMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,9 +22,9 @@ namespace BusShuttleMVC.Data.Migrations
 
             modelBuilder.Entity("DomainModel.Bus", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("BusNumber")
                         .HasColumnType("INTEGER");
@@ -32,6 +32,92 @@ namespace BusShuttleMVC.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Buses");
+                });
+
+            modelBuilder.Entity("DomainModel.BusLoop", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("BusRouteId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BusRouteId");
+
+                    b.ToTable("BusLoops");
+                });
+
+            modelBuilder.Entity("DomainModel.BusRoute", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BusRoutes");
+                });
+
+            modelBuilder.Entity("DomainModel.BusStop", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BusStops");
+                });
+
+            modelBuilder.Entity("DomainModel.Entry", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Boarded")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("BusLoopId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("BusNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("BusStopId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Driver")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("LeftBehind")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Entries");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -230,6 +316,41 @@ namespace BusShuttleMVC.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("RouteStop", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("BusRouteId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("BusStopId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BusRouteId");
+
+                    b.HasIndex("BusStopId");
+
+                    b.ToTable("RouteStop");
+                });
+
+            modelBuilder.Entity("DomainModel.BusLoop", b =>
+                {
+                    b.HasOne("DomainModel.BusRoute", "LoopBusRoute")
+                        .WithMany()
+                        .HasForeignKey("BusRouteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("LoopBusRoute");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -279,6 +400,35 @@ namespace BusShuttleMVC.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("RouteStop", b =>
+                {
+                    b.HasOne("DomainModel.BusRoute", "BusRoute")
+                        .WithMany("RouteStops")
+                        .HasForeignKey("BusRouteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DomainModel.BusStop", "BusStop")
+                        .WithMany("RouteStops")
+                        .HasForeignKey("BusStopId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BusRoute");
+
+                    b.Navigation("BusStop");
+                });
+
+            modelBuilder.Entity("DomainModel.BusRoute", b =>
+                {
+                    b.Navigation("RouteStops");
+                });
+
+            modelBuilder.Entity("DomainModel.BusStop", b =>
+                {
+                    b.Navigation("RouteStops");
                 });
 #pragma warning restore 612, 618
         }
