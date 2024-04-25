@@ -2,22 +2,70 @@
     ViewData["Title"] = "Manager Dashboard";
 }
 <h1>@ViewData["Title"]</h1>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card my-3">
+            <div class="card-header">
+                <h2>Activate or deactivate your drivers:</h2>
+            </div>
+            <div class="card-body text-center">
+                <a asp-controller="Manager" asp-action="ManageDrivers">
+                    <button class="btn btn-primary">Manage Drivers</button>
+                </a>
+            </div>
+        </div>
 
-<a asp-controller="Manager" asp-action="ManageBuses">
-    <button class="btn btn-primary">Manage Buses</button>
-</a>
-<a asp-controller="Manager" asp-action="ManageRoutes">
-    <button class="btn btn-primary">Manage Routes</button>
-</a>
-<a asp-controller="Manager" asp-action="ManageDrivers">
-    <button class="btn btn-primary">Manage Drivers</button>
-</a>
-<a asp-controller="Manager" asp-action="ManageBusStops">
-    <button class="btn btn-primary">Manage Stops</button>
-</a>
-<a asp-controller="Manager" asp-action="ManageBusLoops">
-    <button class="btn btn-primary">Manage Loops</button>
-</a>
-<a asp-controller="Manager" asp-action="ManageEntries">
-    <button class="btn btn-primary">Manage Entries</button>
-</a>
+        <div class="card my-3">
+            <div class="card-header">
+                <h2>View bus entries</h2>
+            </div>
+            <div class="card-body text-center">
+                <a asp-controller="Manager" asp-action="ManageEntries">
+                    <button class="btn btn-primary">View and Manage Entries</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="card my-3">
+            <div class="card-header">
+                <h2>First, create some buses:</h2>
+            </div>
+            <div class="card-body text-center">
+                <a asp-controller="Manager" asp-action="ManageBuses">
+                    <button class="btn btn-primary">Manage Buses</button>
+                </a>
+            </div>
+        </div>
+        <div class="card my-3">
+            <div class="card-header">
+                <h2>Then, create some loops:</h2>
+            </div>
+            <div class="card-body text-center">
+                <a asp-controller="Manager" asp-action="ManageBusLoops">
+                    <button class="btn btn-primary">Manage Loops</button>
+                </a>
+            </div>
+        </div>
+        <div class="card my-3">
+            <div class="card-header">
+                <h2>Then, create some stops for the loops:</h2>
+            </div>
+            <div class="card-body text-center">
+                <a asp-controller="Manager" asp-action="ManageBusStops">
+                    <button class="btn btn-primary">Manage Stops</button>
+                </a>
+            </div>
+        </div>
+        <div class="card my-3">
+            <div class="card-header">
+                <h2>Finally, create some routes:</h2>
+            </div>
+            <div class="card-body text-center">
+                <a asp-controller="Manager" asp-action="ManageRoutes">
+                    <button class="btn btn-primary">Manage Routes</button>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>

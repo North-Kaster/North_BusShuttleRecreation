@@ -6,33 +6,36 @@
     // Convert BusStops IEnumerable to List for use here
     var busStopsList = Model.BusStops.ToList();
 }
-<form asp-action="CreateEntry" asp-controller="Driver" method="post">
-    <input type="hidden" name="busNumber" value="@TempData["BusNumber"]" />
-    <input type="hidden" name="busLoopId" value="@TempData["BusLoopId"]" />
-    <label for="busStopId">Current Stop:</label>
-        <select id="busStopId" name="busStopId">
-            @foreach (var stop in busStopsList)
-            {   
-                // If the stop is the current stop, add HTML selected attribute
-                if (busStopsList.IndexOf(stop) == nextStopIndex)
-                {
-                    <option value="@stop.Id" selected>@stop.Name</option>
-                }
-                // Otherwise, add the stop without the selected attribute
-                else
+<div class="d-flex justify-content-center align-items-center">
+    <form asp-action="CreateEntry" asp-controller="Driver" method="post" class="text-center">
+        <div class="form-group my-3">
+        <input type="hidden" name="busNumber" value="@TempData["BusNumber"]" />
+        <input type="hidden" name="busLoopId" value="@TempData["BusLoopId"]" />
+        <label for="busStopId">Current Stop:</label>
+            <select id="busStopId" name="busStopId" class="form-control" required>
+                @foreach (var stop in busStopsList)
                 {   
-                    <option value="@stop.Id">@stop.Name</option>
+                    // If the stop is the current stop, add HTML selected attribute
+                    if (busStopsList.IndexOf(stop) == nextStopIndex)
+                    {
+                        <option value="@stop.Id" selected>@stop.Name</option>
+                    }
+                    // Otherwise, add the stop without the selected attribute
+                    else
+                    {   
+                        <option value="@stop.Id">@stop.Name</option>
+                    }
                 }
-            }
-        </select>
-    </div>
-    <div>
-        <label for="boarded">Boarded:</label>
-        <input type="number" id="boarded" name="boarded" required />
-    </div>
-    <div>
-        <label for="leftBehind">Left Behind:</label>
-        <input type="number" id="leftBehind" name="leftBehind" required />
-    </div>
-    <input type="submit" value="Submit" />
-</form>
+            </select>
+        </div>
+        <div class="form-group my-3">
+            <label for="boarded">Boarded:</label>
+            <input type="number" id="boarded" name="boarded" class="form-control" min="0" value="0" required />
+        </div>
+        <div class="form-group my-3">
+            <label for="leftBehind">Left Behind:</label>
+            <input type="number" id="leftBehind" name="leftBehind" class="form-control" min="0" value="0" required />
+        </div>
+        <input type="submit" value="Submit" class="btn btn-primary" />
+    </form>
+</div>

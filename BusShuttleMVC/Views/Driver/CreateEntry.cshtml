@@ -1,24 +1,25 @@
 @model BusShuttleMVC.Models.EntryViewModel
 
-<form asp-action="StartRoute" asp-controller="Driver" method="post">
-    <div>
-        <label for="busNumber">Bus Number:</label>
-        <select id="busNumber" name="busNumber">
-            @foreach (var bus in Model.Buses)
-            {
-                <option value="@bus.BusNumber">@bus.BusNumber</option>
-            }
-        </select>
-    </div>
-    <div>
-        <label for="busLoopId">Loop:</label>
-        <select id="busLoopId" name="busLoopId">
-            @foreach (var loop in Model.BusLoops)
-            {
-                <option value="@loop.Id">@loop.Name</option>
-            }
-        </select>
-    </div>
-    <input type="submit" value="Start Route" />
-</form>
-    
+<div class="d-flex justify-content-center align-items-center">
+    <form asp-action="StartRoute" asp-controller="Driver" method="post" class="text-center">
+        <div class="form-group my-3">
+            <label for="busNumber"><h1>What bus are you driving?</h1></label>
+            <select id="busNumber" name="busNumber" class="form-control" required>
+                @foreach (var bus in Model.Buses)
+                {
+                    <option value="@bus.BusNumber">@bus.BusNumber</option>
+                }
+            </select>
+        </div>
+        <div class="form-group my-3">
+            <label for="busLoopId"><h1>What loop are you on?</h1></label>
+            <select id="busLoopId" name="busLoopId" class="form-control" required>
+                @foreach (var loop in Model.BusLoops)
+                {
+                    <option value="@loop.Id">@loop.Name</option>
+                }
+            </select>
+        </div>
+        <input type="submit" value="Start Route" class="btn btn-primary" />
+    </form>
+</div>
