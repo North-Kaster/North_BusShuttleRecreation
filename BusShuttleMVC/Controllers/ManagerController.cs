@@ -1,11 +1,14 @@
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 using DomainModel;
 using BusShuttleMVC.Models;
 using BusShuttleMVC.Services;
 using BusShuttleMVC.Data;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace BusShuttleMVC.Controllers
 {
@@ -18,8 +21,9 @@ namespace BusShuttleMVC.Controllers
         private readonly IBusLoopService _busLoopService;
         private readonly IBusRouteService _busRouteService;
         private readonly IEntryService _entryService;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ManagerController(ILogger<ManagerController> logger, IBusService busService, IBusStopService busStopService, IBusLoopService busLoopService, IBusRouteService busRouteService, IEntryService entryService)
+        public ManagerController(ILogger<ManagerController> logger, IBusService busService, IBusStopService busStopService, IBusLoopService busLoopService, IBusRouteService busRouteService, IEntryService entryService, UserManager<IdentityUser> userManager)
         {
             _logger = logger;
             _busService = busService;
@@ -27,6 +31,7 @@ namespace BusShuttleMVC.Controllers
             _busLoopService = busLoopService;
             _busRouteService = busRouteService;
             _entryService = entryService;
+            _userManager = userManager;
         }
 
         public IActionResult ManagerDashboard()
@@ -150,9 +155,43 @@ namespace BusShuttleMVC.Controllers
 
             return View(busStops);
         }
-        public IActionResult ManageDrivers()
+        public async Task<IActionResult> ManageDrivers()
         {
-            return View();
+            var users = await _userManager.GetUsersForClaimAsync(new Claim("IsDriver", "true"));
+            var model = new List<ManageDriversViewModel>();
+
+            foreach (var user in users)
+            {
+                var claims = await _userManager.GetClaimsAsync(user);
+                var isActivated = claims.FirstOrDefault(c => c.Type == "isActivated")?.Value ?? "false";
+                model.Add(new ManageDriversViewModel { UserName = user.UserName, IsActivated = isActivated });
+            }
+
+            return View(model);
+        }
+        public async Task<IActionResult> ChangeDriverActivationStatus(string userName)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user == null)
+            {
+                return NotFound($"User with username {userName} does not exist.");
+            }
+
+            var existingIsActivatedClaim = (await _userManager.GetClaimsAsync(user))
+                .FirstOrDefault(c => c.Type == "isActivated");
+                
+            if (existingIsActivatedClaim != null && existingIsActivatedClaim.Value == "true")
+            {
+                await _userManager.RemoveClaimAsync(user, existingIsActivatedClaim);
+                await _userManager.AddClaimAsync(user, new Claim("isActivated", "false"));
+            }
+            else
+            {
+                await _userManager.RemoveClaimAsync(user, existingIsActivatedClaim);
+                await _userManager.AddClaimAsync(user, new Claim("isActivated", "true"));
+            }
+
+            return RedirectToAction("ManageDrivers");
         }
         public IActionResult ManageEntries()
         {

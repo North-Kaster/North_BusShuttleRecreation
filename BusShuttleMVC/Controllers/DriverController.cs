@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BusShuttleMVC.Controllers
 {
-    [Authorize(Policy = "IsDriver")]
+    [Authorize(Policy = "IsDriverAndActivated")]
     public class DriverController : Controller
     {
         private readonly IEntryService _entryService;

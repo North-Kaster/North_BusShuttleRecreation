@@ -119,9 +119,11 @@ namespace BusShuttleMVC.Areas.Identity.Pages.Account
                 var anyUsers = await _userManager.Users.AnyAsync();
 
                 // If no users exist, it's the first user, so add the "IsManager" claim
-                // Otherwise, add the "IsDriver" claim
-                var claim = anyUsers ? new Claim("IsDriver", "true") : new Claim("IsManager", "true");
-                await _userManager.AddClaimsAsync(user, new[] { claim });
+                // Otherwise, add the "IsDriver" claim and "IsActivated" claim
+                var claims = anyUsers 
+                ? new List<Claim> { new Claim("IsDriver", "true"), new Claim("isActivated", "false") } 
+                : new List<Claim> { new Claim("IsManager", "true") };
+                await _userManager.AddClaimsAsync(user, claims);
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

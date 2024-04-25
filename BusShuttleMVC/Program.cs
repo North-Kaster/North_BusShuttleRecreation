@@ -31,7 +31,10 @@ public class Program
         builder.Services.AddAuthorization(options =>
         {
             options.AddPolicy("IsDriver", policy => policy.RequireClaim("isDriver", "true"));
-            options.AddPolicy("IsManager", policy => policy.RequireClaim("isManager", "true")); // new policy
+            options.AddPolicy("IsManager", policy => policy.RequireClaim("isManager", "true"));
+            options.AddPolicy("IsDriverAndActivated", policy =>
+            policy.RequireClaim("IsDriver", "true")
+                  .RequireClaim("isActivated", "true"));
         });
 
         var app = builder.Build();

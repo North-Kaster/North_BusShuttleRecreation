@@ -1,0 +1,25 @@
+@model List<ManageDriversViewModel>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Is Activated</th>
+            <th>Activate Driver</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var driver in Model)
+        {
+            <tr>
+                <td>@driver.UserName</td>
+                <td>@driver.IsActivated</td>
+                <td><form asp-action="ChangeDriverActivationStatus" asp-controller="Manager" method="post">
+                        <input type="hidden" name="userName" value="@driver.UserName" />
+                        <input type="submit" value="Change Status" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
