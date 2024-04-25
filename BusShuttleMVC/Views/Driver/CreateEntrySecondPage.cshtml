@@ -1,0 +1,38 @@
+@model BusShuttleMVC.Models.EntryViewModel
+@{
+    // Have to cast NextStopIndex to an int 
+    // Set to 0 if TempData["NextStopIndex"] is null
+    var nextStopIndex = (int)(TempData["NextStopIndex"] ?? 0);
+    // Convert BusStops IEnumerable to List for use here
+    var busStopsList = Model.BusStops.ToList();
+}
+<form asp-action="CreateEntry" asp-controller="Driver" method="post">
+    <input type="hidden" name="busNumber" value="@TempData["BusNumber"]" />
+    <input type="hidden" name="busLoopId" value="@TempData["BusLoopId"]" />
+    <label for="busStopId">Current Stop:</label>
+        <select id="busStopId" name="busStopId">
+            @foreach (var stop in busStopsList)
+            {   
+                // If the stop is the current stop, add HTML selected attribute
+                if (busStopsList.IndexOf(stop) == nextStopIndex)
+                {
+                    <option value="@stop.Id" selected>@stop.Name</option>
+                }
+                // Otherwise, add the stop without the selected attribute
+                else
+                {   
+                    <option value="@stop.Id">@stop.Name</option>
+                }
+            }
+        </select>
+    </div>
+    <div>
+        <label for="boarded">Boarded:</label>
+        <input type="number" id="boarded" name="boarded" required />
+    </div>
+    <div>
+        <label for="leftBehind">Left Behind:</label>
+        <input type="number" id="leftBehind" name="leftBehind" required />
+    </div>
+    <input type="submit" value="Submit" />
+</form>

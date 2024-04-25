@@ -1,6 +1,6 @@
 @model BusShuttleMVC.Models.EntryViewModel
 
-<form asp-action="CreateEntry" asp-controller="Driver" method="post">
+<form asp-action="StartRoute" asp-controller="Driver" method="post">
     <div>
         <label for="busNumber">Bus Number:</label>
         <select id="busNumber" name="busNumber">
@@ -19,22 +19,6 @@
             }
         </select>
     </div>
-    <div>
-        <label for="busStopId">Current Stop:</label>
-        <select id="busStopId" name="busStopId">
-            @foreach (var stop in Model.BusStops)
-            {
-                <option value="@stop.Id">@stop.Name</option>
-            }
-        </select>
-    </div>
-    <div>
-        <label for="boarded">Boarded:</label>
-        <input type="number" id="boarded" name="boarded" required />
-    </div>
-    <div>
-        <label for="leftBehind">Left Behind:</label>
-        <input type="number" id="leftBehind" name="leftBehind" required />
-    </div>
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Start Route" />
 </form>
+    

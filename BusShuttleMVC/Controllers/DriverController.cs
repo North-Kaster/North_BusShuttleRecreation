@@ -36,13 +36,32 @@ namespace BusShuttleMVC.Controllers
         {
             var busLoops = _busLoopService.GetAllBusLoops();
             var buses = _busService.GetAllBuses();
-            var busStops = _busStopService.GetAllBusStops();
             var model = new EntryViewModel
             {
                 BusLoops = busLoops.Select(BusLoopViewModel.FromBusLoop), 
                 Buses = buses.Select(BusViewModel.FromBus),
+            };
+
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult StartRoute(string busNumber, Guid busLoopId)
+        {
+            TempData["BusNumber"] = busNumber;
+            TempData["BusLoopId"] = busLoopId;
+            return RedirectToAction("CreateEntrySecondPage");
+        }
+        public IActionResult CreateEntrySecondPage()
+        {
+
+            var busStops = _busStopService.GetAllBusStops();
+            var model = new EntryViewModel
+            {
                 BusStops = busStops.Select(BusStopViewModel.FromBusStop), 
             };
+
+            TempData.Keep("BusNumber");
+            TempData.Keep("BusLoopId");
 
             return View(model);
         }
@@ -52,7 +71,16 @@ namespace BusShuttleMVC.Controllers
         {
             var driver = User.Identity.Name;
             var entry = await _entryService.CreateEntry(id, timeStamp, boarded, leftBehind, driver, busLoopId, busNumber, busStopId);
-            return RedirectToAction("CreateEntry");
+
+            var busStops = _busStopService.GetAllBusStops().ToList();
+            // Find the index of the current stop
+            var currentIndex = busStops.FindIndex(stop => stop.Id == busStopId);
+            // Store the index of the next stop in TempData
+            TempData["NextStopIndex"] = (currentIndex + 1) % busStops.Count;
+            TempData.Keep("BusNumber");
+            TempData.Keep("BusLoopId");
+
+            return RedirectToAction("CreateEntrySecondPage");
         }
     }
 }
