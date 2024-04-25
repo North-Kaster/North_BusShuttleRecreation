@@ -1,5 +1,7 @@
 using DomainModel;
 using BusShuttleMVC.Data;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace BusShuttleMVC.Services
 {
@@ -19,7 +21,9 @@ namespace BusShuttleMVC.Services
 
         public BusLoop? FindBusLoopByID(Guid id)
         {
-            return _context.BusLoops.Find(id);
+            return _context.BusLoops
+                   .Include(bl => bl.LoopBusRoute)
+                   .FirstOrDefault(bl => bl.Id == id);
         }
 
         public void AddBusLoop(BusLoop busLoop)
@@ -42,6 +46,14 @@ namespace BusShuttleMVC.Services
                 busLoop.LoopBusRoute = busRoute;
                 _context.SaveChanges();
             }
+        }
+        public BusLoop FindBusLoopByNameWithStops(string loopName)
+        {
+            return _context.BusLoops
+                        .Include(bl => bl.LoopBusRoute)
+                        .ThenInclude(br => br.RouteStops)
+                        .ThenInclude(rs => rs.BusStop)
+                        .FirstOrDefault(bl => bl.Name == loopName);
         }
     }
 }

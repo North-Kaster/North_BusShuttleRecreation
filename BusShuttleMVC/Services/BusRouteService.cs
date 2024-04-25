@@ -35,5 +35,16 @@ namespace BusShuttleMVC.Services
             _context.BusRoutes.Update(busRoute);
             _context.SaveChanges();
         }
+        public void AddStopToRoute(BusRoute busRoute, BusStop busStop)
+        {
+            var routeStop = new RouteStop
+            {
+                BusRouteId = busRoute.Id,
+                BusStopId = busStop.Id
+            };
+
+            busRoute.RouteStops.Add(routeStop);
+            _context.SaveChanges();
+        }
     }
 }

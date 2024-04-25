@@ -12,21 +12,21 @@ namespace BusShuttleMVC.Controllers
     [Authorize(Policy = "IsManager")]
     public class ManagerController : Controller
     {
+        private readonly ILogger<ManagerController> _logger;
         private readonly IBusService _busService;
         private readonly IBusStopService _busStopService;
         private readonly IBusLoopService _busLoopService;
         private readonly IBusRouteService _busRouteService;
         private readonly IEntryService _entryService;
-        private readonly ApplicationDbContext _context;
 
-        public ManagerController(IBusService busService, IBusStopService busStopService, IBusLoopService busLoopService, IBusRouteService busRouteService, IEntryService entryService, ApplicationDbContext context)
+        public ManagerController(ILogger<ManagerController> logger, IBusService busService, IBusStopService busStopService, IBusLoopService busLoopService, IBusRouteService busRouteService, IEntryService entryService)
         {
+            _logger = logger;
             _busService = busService;
             _busStopService = busStopService;
             _busLoopService = busLoopService;
             _busRouteService = busRouteService;
             _entryService = entryService;
-            _context = context;
         }
 
         public IActionResult ManagerDashboard()
@@ -83,8 +83,11 @@ namespace BusShuttleMVC.Controllers
         public IActionResult AddBusLoop(string busLoopName)
         {
             var busRoute = new BusRoute(Guid.NewGuid());
+            _busRouteService.AddBusRoute(busRoute);
+
             var busLoop = new BusLoop(Guid.NewGuid(), busLoopName, busRoute);
             _busLoopService.AddBusLoop(busLoop);
+
             return RedirectToAction("ManageBusLoops");
         }
         public IActionResult DeleteBusLoop(Guid id)
@@ -106,37 +109,37 @@ namespace BusShuttleMVC.Controllers
         [HttpPost]
         public IActionResult AddStopToRoute(Guid busLoopId, Guid busStopId)
         {
-            var busLoop = _context.BusLoops.Include(bl => bl.LoopBusRoute).FirstOrDefault(bl => bl.Id == busLoopId);
+            var busLoop = _busLoopService.FindBusLoopByID(busLoopId);
+
+            // Some checks I made for debugging purposes. Have proven to be useful to keep around
             if (busLoop == null)
             {
-                return NotFound($"BusLoop with ID {busLoopId} does not exist.");
+                _logger.LogError($"BusLoop with ID {busLoopId} does not exist.");
+                return NotFound();
             }
 
             var busRoute = busLoop.LoopBusRoute;
             if (busRoute == null)
             {
-                return NotFound($"BusRoute for BusLoop with ID {busLoopId} does not exist.");
+                _logger.LogError($"BusRoute for BusLoop with ID {busLoopId} does not exist.");
+                return NotFound();
             }
 
-            var busStop = _context.BusStops.Find(busStopId);
+            var busStop = _busStopService.FindBusStopByID(busStopId);
             if (busStop == null)
             {
-                return NotFound($"BusStop with ID {busStopId} does not exist.");
+                _logger.LogError($"BusStop with ID {busStopId} does not exist.");
+                return NotFound();
             }
 
-            busRoute.RouteStops.Add(new RouteStop { BusStop = busStop });
-
-            _context.SaveChanges();
+            _busRouteService.AddStopToRoute(busRoute, busStop);
 
             return RedirectToAction("ManageRoutes");
-        }
+            }
 
         public IActionResult ViewStopsForRoute(string loopName)
         {
-            var busLoop = _context.BusLoops.Include(bl => bl.LoopBusRoute)
-                                        .ThenInclude(br => br.RouteStops)
-                                        .ThenInclude(rs => rs.BusStop)
-                                        .FirstOrDefault(bl => bl.Name == loopName);
+            var busLoop = _busLoopService.FindBusLoopByNameWithStops(loopName);
 
             if (busLoop == null)
             {
