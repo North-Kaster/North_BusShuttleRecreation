@@ -64,6 +64,8 @@ BenchmarkDotNet.Artifacts/
 project.lock.json
 project.fragment.lock.json
 artifacts/
+DomainModel/bin/
+DomainModel/obj/
 
 # Tye
 .tye/
