@@ -36,7 +36,23 @@ namespace BusShuttleMVC.Controllers
 
         public IActionResult ManagerDashboard()
         {
-            return View();
+            var entries = _entryService.GetEntries();
+
+            var model = new ManageEntryViewModel
+            {
+                Entries = entries.Select(e => new EntryViewModel
+                {
+                    Timestamp = e.Timestamp,
+                    Boarded = e.Boarded,
+                    LeftBehind = e.LeftBehind,
+                    Driver = e.Driver,
+                    BusNumber = e.BusNumber,
+                    BusLoopName = _busLoopService.FindBusLoopByID(e.BusLoopId)?.Name,
+                    BusStopName = _busStopService.FindBusStopByID(e.BusStopId)?.Name
+                }).ToList()
+            };
+
+            return View(model);
         }
 
         public IActionResult ManageBuses()

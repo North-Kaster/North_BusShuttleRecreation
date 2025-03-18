@@ -1,8 +1,53 @@
+@model BusShuttleMVC.Models.ManageEntryViewModel
 @{
     ViewData["Title"] = "Manager Dashboard";
 }
 <h1>@ViewData["Title"]</h1>
 <div class="row justify-content-center">
+    <div class="table-responsive">
+        <table class="data-table table table-striped">
+            <thead>
+                <tr>
+                    <th>Boarded</th>
+                    <th>Left Behind</th>
+                    <th>Bus Stop</th>
+                    <th>Timestamp</th>
+                    <th>Bus Loop</th>
+                    <th>Driver Name</th>
+                    <th>Bus Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var entry in Model.Entries)
+                {
+                    <tr>
+                        <td>@entry.Boarded</td>
+                        <td>@entry.LeftBehind</td>
+                        <td>@entry.BusStopName</td>
+                        <td>@entry.Timestamp</td>
+                        <td>@entry.BusLoopName</td>
+                        <td>@entry.Driver</td>
+                        <td>@entry.BusNumber</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="container-fluid py-3 text-center">
+      <div class="row">
+        <div class="col-md-6 my-2">
+        <form asp-controller="Manager" asp-action="DownloadEntriesCSV" method="post">
+            <button type="submit" class="btn btn-primary">Download Entries</button>
+        </form>
+        </div>
+        <div class="col-md-6 my-2">
+        <a asp-controller="Manager" asp-action="ManageEntries">
+            <button class="btn btn-primary">Manage Entries</button>
+        </a>
+        </div>
+      </div>
+    </div>
+
     <div class="col-md-6">
         <div class="card my-3">
             <div class="card-header">
@@ -11,17 +56,6 @@
             <div class="card-body text-center">
                 <a asp-controller="Manager" asp-action="ManageDrivers">
                     <button class="btn btn-primary">Manage Drivers</button>
-                </a>
-            </div>
-        </div>
-
-        <div class="card my-3">
-            <div class="card-header">
-                <h2>View bus entries</h2>
-            </div>
-            <div class="card-body text-center">
-                <a asp-controller="Manager" asp-action="ManageEntries">
-                    <button class="btn btn-primary">View and Manage Entries</button>
                 </a>
             </div>
         </div>
@@ -66,6 +100,5 @@
                 </a>
             </div>
         </div>
-
     </div>
 </div>
