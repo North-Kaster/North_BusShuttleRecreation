@@ -5,8 +5,8 @@
 <h2>Manage Buses</h2>
 
 <form asp-action="AddBus" method="post">
-    <input type="text" name="busNumber" placeholder="Enter bus number" required />
-    <button type="submit" class="btn btn-secondary">Create Bus</button>
+    <input type="text" class="standard-text-input" name="busNumber" placeholder="Enter bus number" required />
+    <button type="submit" class="btn button-primary">Create Bus</button>
 </form>
 <table class="table table-striped">
     <thead>
@@ -35,7 +35,7 @@
                 <td>
                     <form asp-action="DeleteBus" method="post">
                         <input type="hidden" name="id" value="@item.Id" />
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn delete-button"></button>
                     </form>
                     
                 </td>
