@@ -4,7 +4,7 @@
     <form asp-action="StartRoute" asp-controller="Driver" method="post" class="text-center">
         <div class="form-group my-3">
             <label for="busNumber"><h1>What bus are you driving?</h1></label>
-            <select id="busNumber" name="busNumber" class="form-control" required>
+            <select id="busNumber" name="busNumber" class="standard-select-input" required>
                 @foreach (var bus in Model.Buses)
                 {
                     <option value="@bus.BusNumber">@bus.BusNumber</option>
@@ -13,13 +13,13 @@
         </div>
         <div class="form-group my-3">
             <label for="busLoopId"><h1>What loop are you on?</h1></label>
-            <select id="busLoopId" name="busLoopId" class="form-control" required>
+            <select id="busLoopId" name="busLoopId" class="standard-select-input" required>
                 @foreach (var loop in Model.BusLoops)
                 {
                     <option value="@loop.Id">@loop.Name</option>
                 }
             </select>
         </div>
-        <input type="submit" value="Start Route" class="btn btn-primary" />
+        <input type="submit" value="Start Route" class="btn button-primary" />
     </form>
 </div>
