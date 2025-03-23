@@ -1,0 +1,64 @@
+/* 
+-------------------------------------------------------------------
+    --- Defaults --- 
+------------------------------------------------------------------- 
+*/
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+/* 
+-------------------------------------------------------------------
+    --- Variables --- 
+------------------------------------------------------------------- 
+*/
+
+ :root {
+  --background: #FFFFFF;
+  --light-gray: #E6E7E8;
+  --dark-gray: #54585A;
+  --black: #000000;
+  --primary-accent: #BA0C2F;  
+  --secondary-accent: #79242F;
+  --standard-round: 10px;
+  --standard-button-round: 20px;
+}
+
+/* 
+-------------------------------------------------------------------
+    --- Components --- 
+------------------------------------------------------------------- 
+*/
+
+.primary-button {
+  background-color: var(--primary-accent);
+  color: white;
+  border: 2px solid transparent;
+  border-radius: var(--standard-button-round);
+  transition: 0.3s ease-in-out;
+}
+
+.primary-button:hover {
+  background-color: var(--secondary-accent);
+  color: white;
+  border: 2px solid black;
+}
+
+
+
