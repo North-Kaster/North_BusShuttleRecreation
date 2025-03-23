@@ -36,8 +36,8 @@ body {
   --black: #000000;
   --primary-accent: #BA0C2F;  
   --secondary-accent: #79242F;
-  --standard-round: 10px;
-  --standard-button-round: 20px;
+  --standard-round: 8px;
+  --standard-transition: 0.3s ease-in-out;
 }
 
 /* 
@@ -46,19 +46,64 @@ body {
 ------------------------------------------------------------------- 
 */
 
-.primary-button {
+.button-primary {
   background-color: var(--primary-accent);
   color: white;
   border: 2px solid transparent;
-  border-radius: var(--standard-button-round);
-  transition: 0.3s ease-in-out;
+  border-radius: var(--standard-round);
+  transition: var(--standard-transition);
 }
 
-.primary-button:hover {
+.button-primary:hover {
   background-color: var(--secondary-accent);
   color: white;
   border: 2px solid black;
 }
 
 
+.standard-select-input {
+  display: block;
+  width: 100%;
+  border: 2px solid var(--light-gray);
+  border-radius: var(--standard-round);
+  padding: .375rem .75rem;
+  transition: var(--standard-transition);
+  
+}
+.standard-text-input {
+  border: 2px solid var(--light-gray);
+  border-radius: var(--standard-round);
+  padding: .375rem .75rem;
+  vertical-align: middle;
+  transition: var(--standard-transition);
+}
 
+.standard-text-input:focus, .standard-select-input:focus {
+  outline: none;
+  background-color: var(--light-gray);
+  border: 2px solid var(--primary-accent);
+}
+.standard-text-input:hover, .standard-select-input:hover {
+  outline: none;
+  border: 2px solid var(--primary-accent);
+}
+
+.delete-button {
+  
+  background-color: var(--primary-accent);
+  color: var(--background);
+  border-radius: 100%;
+  border: 2px solid var(--black);
+  transition: var(--standard-transition);
+}
+
+.delete-button:hover {
+  background-color: var(--secondary-accent);
+  color: var(--background);
+  border: 2px solid var(--black);
+}
+
+button.delete-button::before {
+  font-family: "bootstrap-icons";
+  content: "\F78A";
+}

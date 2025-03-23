@@ -1,5 +1,6 @@
 @model List<ManageDriversViewModel>
 
+<h2>Manage Drivers</h2>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -16,7 +17,7 @@
                 <td>@driver.IsActivated</td>
                 <td><form asp-action="ChangeDriverActivationStatus" asp-controller="Manager" method="post">
                         <input type="hidden" name="userName" value="@driver.UserName" />
-                        <input type="submit" value="Change Status" />
+                        <button type="submit" class="btn button-primary" >Change Status</button>
                     </form>
                 </td>
             </tr>

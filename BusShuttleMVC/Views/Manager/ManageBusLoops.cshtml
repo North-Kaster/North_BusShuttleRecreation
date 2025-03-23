@@ -5,8 +5,8 @@
 <h2>Manage Bus Loops</h2>
 
 <form asp-action="AddBusLoop" method="post">
-    <input type="text" name="busLoopName" placeholder="Enter bus loop name" required />
-    <button type="submit" class="btn btn-secondary">Create Bus Loop</button>
+    <input type="text" class="standard-text-input" name="busLoopName" placeholder="Enter bus loop name" required />
+    <button type="submit" class="btn button-primary">Create Bus Loop</button>
 </form>
 <table class="table table-striped">
     <thead>
@@ -35,7 +35,7 @@
                 <td>
                     <form asp-action="DeleteBusLoop" method="post">
                         <input type="hidden" name="id" value="@item.Id" />
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn delete-button"></button>
                     </form>
                     
                 </td>

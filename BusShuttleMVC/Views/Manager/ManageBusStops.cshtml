@@ -5,10 +5,10 @@
 <h2>Manage Stops</h2>
 
 <form asp-action="AddBusStop" method="post">
-    <input type="text" name="busStopName" placeholder="Enter stop name" required />
-    <input type="text" name="latitude" placeholder="Enter latitude" required />
-    <input type="text" name="longitude" placeholder="Enter longitude" required />
-    <button type="submit" class="btn btn-secondary">Create Stop</button>
+    <input type="text" class="standard-text-input" name="busStopName" placeholder="Enter stop name" required />
+    <input type="text" class="standard-text-input" name="latitude" placeholder="Enter latitude" required />
+    <input type="text" class="standard-text-input" name="longitude" placeholder="Enter longitude" required />
+    <button type="submit" class="btn button-primary">Create Stop</button>
 </form>
 <table class="table table-striped">
     <thead>
@@ -49,7 +49,7 @@
                 <td>
                     <form asp-action="DeleteBusStop" method="post">
                         <input type="hidden" name="id" value="@item.Id" />
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn delete-button"></button>
                     </form>
                     
                 </td>
