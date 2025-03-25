@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "d6lub1RkkCUvPCgROfiResm3mtILzJJPaucNGvAx8R+8U0KkW0m8oIDQhAzUQkU4Nzu461SLRxBEp/DKJVGaGg==",
+  "dgSpecHash": "uPkMrPhS1wpInOVPP4wIENC0cSsrLwY4FRN2uQNkboZc4v6jnzoU+XQqvoQ7lW9F9docKYEOhEMmcCkSPXnFgg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\north\\Documents\\00_College\\Computer Science\\CS420_Dotnet-Web\\finalProject_BusShuttleRecreation\\BusShuttleMVC.Tests\\busshuttlemvc.tests.csproj",
+  "projectFilePath": "C:\\Users\\north\\Documents\\00_College\\Computer Science\\CS420_Dotnet-Web\\finalProject_BusShuttleRecreation\\busshuttlemvc.tests\\BusShuttleMVC.Tests.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\north\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\north\\.nuget\\packages\\coverlet.collector\\6.0.0\\coverlet.collector.6.0.0.nupkg.sha512",
     "C:\\Users\\north\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\north\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
@@ -114,6 +115,7 @@
     "C:\\Users\\north\\.nuget\\packages\\microsoft.visualstudio.web.codegenerators.mvc\\8.0.2\\microsoft.visualstudio.web.codegenerators.mvc.8.0.2.nupkg.sha512",
     "C:\\Users\\north\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
     "C:\\Users\\north\\.nuget\\packages\\mono.texttemplating\\2.3.1\\mono.texttemplating.2.3.1.nupkg.sha512",
+    "C:\\Users\\north\\.nuget\\packages\\moq\\4.20.72\\moq.4.20.72.nupkg.sha512",
     "C:\\Users\\north\\.nuget\\packages\\mstest.testadapter\\3.0.4\\mstest.testadapter.3.0.4.nupkg.sha512",
     "C:\\Users\\north\\.nuget\\packages\\mstest.testframework\\3.0.4\\mstest.testframework.3.0.4.nupkg.sha512",
     "C:\\Users\\north\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",

@@ -6,7 +6,7 @@ namespace BusShuttleMVC.Data;
 
 public class ApplicationDbContext : IdentityDbContext
 {
-    public DbSet<Bus> Buses { get; set; }
+    public virtual DbSet<Bus> Buses { get; set; }
     public DbSet<BusStop> BusStops { get; set; }
     public DbSet<BusLoop> BusLoops { get; set; }
     public DbSet<BusRoute> BusRoutes { get; set; }
@@ -29,6 +29,12 @@ public class ApplicationDbContext : IdentityDbContext
             .WithMany(bs => bs.RouteStops)
             .HasForeignKey(rs => rs.BusStopId);
     }
+
+    // Parameterless constructor for MSTest
+    public ApplicationDbContext()
+    {
+    }
+
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {

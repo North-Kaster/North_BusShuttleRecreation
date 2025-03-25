@@ -2,6 +2,22 @@
   "version": 3,
   "targets": {
     "net8.0": {
+      "Castle.Core/5.1.1": {
+        "type": "package",
+        "dependencies": {
+          "System.Diagnostics.EventLog": "6.0.0"
+        },
+        "compile": {
+          "lib/net6.0/Castle.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Castle.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "coverlet.collector/6.0.0": {
         "type": "package",
         "build": {
@@ -2119,6 +2135,18 @@
           "lib/netcoreapp3.1/Mono.TextTemplating.dll": {}
         }
       },
+      "Moq/4.20.72": {
+        "type": "package",
+        "dependencies": {
+          "Castle.Core": "5.1.1"
+        },
+        "compile": {
+          "lib/net6.0/Moq.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/Moq.dll": {}
+        }
+      },
       "MSTest.TestAdapter/3.0.4": {
         "type": "package",
         "build": {
@@ -2971,6 +2999,30 @@
     }
   },
   "libraries": {
+    "Castle.Core/5.1.1": {
+      "sha512": "rpYtIczkzGpf+EkZgDr9CClTdemhsrwA/W5hMoPjLkRFnXzH44zDLoovXeKtmxb1ykXK9aJVODSpiJml8CTw2g==",
+      "type": "package",
+      "path": "castle.core/5.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ASL - Apache Software Foundation License.txt",
+        "CHANGELOG.md",
+        "LICENSE",
+        "castle-logo.png",
+        "castle.core.5.1.1.nupkg.sha512",
+        "castle.core.nuspec",
+        "lib/net462/Castle.Core.dll",
+        "lib/net462/Castle.Core.xml",
+        "lib/net6.0/Castle.Core.dll",
+        "lib/net6.0/Castle.Core.xml",
+        "lib/netstandard2.0/Castle.Core.dll",
+        "lib/netstandard2.0/Castle.Core.xml",
+        "lib/netstandard2.1/Castle.Core.dll",
+        "lib/netstandard2.1/Castle.Core.xml",
+        "readme.txt"
+      ]
+    },
     "coverlet.collector/6.0.0": {
       "sha512": "tW3lsNS+dAEII6YGUX/VMoJjBS1QvsxqJeqLaJXub08y1FSjasFPtQ4UBUsudE9PNrzLjooClMsPtY2cZLdXpQ==",
       "type": "package",
@@ -6687,6 +6739,23 @@
         "readme.md"
       ]
     },
+    "Moq/4.20.72": {
+      "sha512": "EA55cjyNn8eTNWrgrdZJH5QLFp2L43oxl1tlkoYUKIE9pRwL784OWiTXeCV5ApS+AMYEAlt7Fo03A2XfouvHmQ==",
+      "type": "package",
+      "path": "moq/4.20.72",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net462/Moq.dll",
+        "lib/net6.0/Moq.dll",
+        "lib/netstandard2.0/Moq.dll",
+        "lib/netstandard2.1/Moq.dll",
+        "moq.4.20.72.nupkg.sha512",
+        "moq.nuspec",
+        "readme.md"
+      ]
+    },
     "MSTest.TestAdapter/3.0.4": {
       "sha512": "18THEGVcU4fbAOZWvRtEyvQCnZ/o+3LFAiFbAkWYh63GC5TmHoJ10IUiF9L02SMmbLbWpH1/PxvO7mcInIY4/Q==",
       "type": "package",
@@ -8068,7 +8137,8 @@
       "MSTest.TestAdapter >= 3.0.4",
       "MSTest.TestFramework >= 3.0.4",
       "Microsoft.NET.Test.Sdk >= 17.6.0",
-      "coverlet.collector >= 6.0.0"
+      "coverlet.collector >= 6.0.0",
+      "moq >= 4.20.72"
     ]
   },
   "packageFolders": {
@@ -8077,11 +8147,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\north\\Documents\\00_College\\Computer Science\\CS420_Dotnet-Web\\finalProject_BusShuttleRecreation\\BusShuttleMVC.Tests\\busshuttlemvc.tests.csproj",
-      "projectName": "busshuttlemvc.tests",
-      "projectPath": "C:\\Users\\north\\Documents\\00_College\\Computer Science\\CS420_Dotnet-Web\\finalProject_BusShuttleRecreation\\BusShuttleMVC.Tests\\busshuttlemvc.tests.csproj",
+      "projectUniqueName": "C:\\Users\\north\\Documents\\00_College\\Computer Science\\CS420_Dotnet-Web\\finalProject_BusShuttleRecreation\\busshuttlemvc.tests\\BusShuttleMVC.Tests.csproj",
+      "projectName": "BusShuttleMVC.Tests",
+      "projectPath": "C:\\Users\\north\\Documents\\00_College\\Computer Science\\CS420_Dotnet-Web\\finalProject_BusShuttleRecreation\\busshuttlemvc.tests\\BusShuttleMVC.Tests.csproj",
       "packagesPath": "C:\\Users\\north\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\north\\Documents\\00_College\\Computer Science\\CS420_Dotnet-Web\\finalProject_BusShuttleRecreation\\BusShuttleMVC.Tests\\obj\\",
+      "outputPath": "C:\\Users\\north\\Documents\\00_College\\Computer Science\\CS420_Dotnet-Web\\finalProject_BusShuttleRecreation\\busshuttlemvc.tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\north\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -8127,6 +8197,10 @@
           "coverlet.collector": {
             "target": "Package",
             "version": "[6.0.0, )"
+          },
+          "moq": {
+            "target": "Package",
+            "version": "[4.20.72, )"
           }
         },
         "imports": [
