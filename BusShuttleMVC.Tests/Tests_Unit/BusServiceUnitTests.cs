@@ -14,7 +14,7 @@ namespace BusShuttleMVC.Tests.Services
         private BusService _busService = null!;
 
         [TestInitialize]
-        public void BusServiceTestInitialization()
+        public void Initialize()
         {
             _mockContext.Setup(m => m.Buses).Returns(_mockDbSet.Object);
             _busService = new BusService(_mockContext.Object);
@@ -51,20 +51,20 @@ namespace BusShuttleMVC.Tests.Services
             _mockDbSet.Setup(m => m.Find(bus.Id)).Returns(bus);
 
             var result = _busService.FindBusByID(bus.Id);
-            
+
             Assert.AreEqual(bus, result);
         }
 
         [TestMethod]
         public void Test_AddBus_adds_to_context()
         {
-            
+
             _busService.AddBus(new Bus(Guid.NewGuid(), 123));
 
             _mockDbSet.Verify(m => m.Add(It.IsAny<Bus>()), Times.Once());
             _mockContext.Verify(m => m.SaveChanges(), Times.Once());
         }
-        
+
         [TestMethod]
         public void Test_DeleteBus_deletes_from_context()
         {
@@ -76,7 +76,5 @@ namespace BusShuttleMVC.Tests.Services
             _mockDbSet.Verify(m => m.Remove(It.IsAny<Bus>()), Times.Once());
             _mockContext.Verify(m => m.SaveChanges(), Times.Once());
         }
-
-        
     }
 }
