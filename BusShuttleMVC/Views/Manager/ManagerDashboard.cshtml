@@ -1,4 +1,5 @@
-@model BusShuttleMVC.Models.ManageEntryViewModel
+@model BusShuttleMVC.Models.ManagerDashboardViewModel
+
 @{
     ViewData["Title"] = "Manager Dashboard";
 }
@@ -66,8 +67,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @* @foreach (var stop in Model.BusStops) *@
-
                         <tr>
                             <td>Name</td>
                             <td>Latitude</td>
@@ -89,9 +88,7 @@
                     <h2>Manage drivers</h2>
                 </div>
                 <div class="card-body text-center">
-                    <a asp-controller="Manager" asp-action="ManageDrivers">
-                        <button class="btn button-primary">Manage Drivers</button>
-                    </a>
+                    
                 </div>
             </div>
         </div>
@@ -102,9 +99,7 @@
                     <h2>Buses</h2>
                 </div>
                 <div class="card-body text-center">
-                    <a asp-controller="Manager" asp-action="ManageBuses">
-                        <button class="btn button-primary">Manage Buses</button>
-                    </a>
+                    @Html.Partial("ManageBuses", Model.Buses)
                 </div>
             </div>
         </div>
