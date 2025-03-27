@@ -7,11 +7,13 @@ namespace BusShuttleMVC.Models
     {
         public IEnumerable<EntryViewModel> Entries { get; set; }
         public IEnumerable<BusViewModel> Buses { get; set; }
+        public IEnumerable<BusStopViewModel> BusStops { get; set; }
 
         public ManagerDashboardViewModel()
         {
             Buses = new List<BusViewModel>();
             Entries = new List<EntryViewModel>();
+            BusStops = new List<BusStopViewModel>();
         }
     }
 }

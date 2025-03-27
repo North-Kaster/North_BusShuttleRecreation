@@ -58,26 +58,7 @@
                 Map
             </div>
             <div class="col-md-6 my-2">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Stop Name</th>
-                            <th>Latitude</th>
-                            <th>Longitude</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Name</td>
-                            <td>Latitude</td>
-                            <td>Longitude</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-                <a asp-controller="Manager" asp-action="ManageBusStops">
-                    <button class="btn button-primary">Manage Stops</button>
-                </a>
+                @Html.Partial("ManageBusStops", Model.BusStops)
             </div>
         </div>
     </div>

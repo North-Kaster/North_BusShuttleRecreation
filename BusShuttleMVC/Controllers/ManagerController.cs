@@ -24,7 +24,7 @@ namespace BusShuttleMVC.Controllers
         private readonly UserManager<IdentityUser> _userManager;
 
         // Models
-        private List<EntryViewModel> GetEntryViewModels()
+        private List<EntryViewModel> GetEntryViewModel()
         {
             var entries = _entryService.GetEntries();
 
@@ -40,9 +40,14 @@ namespace BusShuttleMVC.Controllers
             }).ToList();
         }
 
-        private IEnumerable<BusViewModel> GetBusViewModels()
+        private IEnumerable<BusViewModel> GetBusViewModel()
         {
             return _busService.GetAllBuses().Select(BusViewModel.FromBus);
+        }
+
+        private IEnumerable<BusStopViewModel> GetBusStopViewModel()
+        {
+            return _busStopService.GetAllBusStops().Select(BusStopViewModel.FromBusStop);
         }
 
         public ManagerController(ILogger<ManagerController> logger, IBusService busService, IBusStopService busStopService, IBusLoopService busLoopService, IBusRouteService busRouteService, IEntryService entryService, UserManager<IdentityUser> userManager)
@@ -58,13 +63,11 @@ namespace BusShuttleMVC.Controllers
 
         public IActionResult ManagerDashboard()
         {
-            var entries = _entryService.GetEntries();
-            var buses = _busService.GetAllBuses().Select(t => BusViewModel.FromBus(t));
-
             var model = new ManagerDashboardViewModel
             {
-                Entries = GetEntryViewModels(),
-                Buses = GetBusViewModels()
+                Entries = GetEntryViewModel(),
+                Buses = GetBusViewModel(),
+                BusStops = GetBusStopViewModel()
             };
 
             return View(model);
