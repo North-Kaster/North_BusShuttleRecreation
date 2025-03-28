@@ -1,5 +1,23 @@
 /* 
 -------------------------------------------------------------------
+    --- Variables --- 
+------------------------------------------------------------------- 
+*/
+
+:root {
+  --background: #E6E7E8;
+  --foreground: #FFFFFF;
+  --light-gray: #E6E7E8;
+  --dark-gray: #54585A;
+  --black: #000000;
+  --primary-accent: #BA0C2F;  
+  --secondary-accent: #79242F;
+  --standard-round: 8px;
+  --standard-transition: 0.3s ease-in-out;
+}
+
+/* 
+-------------------------------------------------------------------
     --- Defaults --- 
 ------------------------------------------------------------------- 
 */
@@ -20,24 +38,24 @@ html {
 }
 
 body {
+  background-color: var(--background);
   margin-bottom: 60px;
 }
 
 /* 
 -------------------------------------------------------------------
-    --- Variables --- 
+    --- Containers --- 
 ------------------------------------------------------------------- 
 */
 
- :root {
-  --background: #FFFFFF;
-  --light-gray: #E6E7E8;
-  --dark-gray: #54585A;
-  --black: #000000;
-  --primary-accent: #BA0C2F;  
-  --secondary-accent: #79242F;
-  --standard-round: 8px;
-  --standard-transition: 0.3s ease-in-out;
+.foreground {
+  background-color: var(--foreground);
+  border-radius: var(--standard-round);
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
 }
 
 /* 

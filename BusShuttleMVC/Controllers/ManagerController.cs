@@ -23,6 +23,33 @@ namespace BusShuttleMVC.Controllers
         private readonly IEntryService _entryService;
         private readonly UserManager<IdentityUser> _userManager;
 
+        // Models
+        private List<EntryViewModel> GetEntryViewModel()
+        {
+            var entries = _entryService.GetEntries();
+
+            return entries.Select(e => new EntryViewModel
+            {
+                Timestamp = e.Timestamp,
+                Boarded = e.Boarded,
+                LeftBehind = e.LeftBehind,
+                Driver = e.Driver,
+                BusNumber = e.BusNumber,
+                BusLoopName = _busLoopService.FindBusLoopByID(e.BusLoopId)?.Name,
+                BusStopName = _busStopService.FindBusStopByID(e.BusStopId)?.Name
+            }).ToList();
+        }
+
+        private IEnumerable<BusViewModel> GetBusViewModel()
+        {
+            return _busService.GetAllBuses().Select(BusViewModel.FromBus);
+        }
+
+        private IEnumerable<BusStopViewModel> GetBusStopViewModel()
+        {
+            return _busStopService.GetAllBusStops().Select(BusStopViewModel.FromBusStop);
+        }
+
         public ManagerController(ILogger<ManagerController> logger, IBusService busService, IBusStopService busStopService, IBusLoopService busLoopService, IBusRouteService busRouteService, IEntryService entryService, UserManager<IdentityUser> userManager)
         {
             _logger = logger;
@@ -36,20 +63,11 @@ namespace BusShuttleMVC.Controllers
 
         public IActionResult ManagerDashboard()
         {
-            var entries = _entryService.GetEntries();
-
-            var model = new ManageEntryViewModel
+            var model = new ManagerDashboardViewModel
             {
-                Entries = entries.Select(e => new EntryViewModel
-                {
-                    Timestamp = e.Timestamp,
-                    Boarded = e.Boarded,
-                    LeftBehind = e.LeftBehind,
-                    Driver = e.Driver,
-                    BusNumber = e.BusNumber,
-                    BusLoopName = _busLoopService.FindBusLoopByID(e.BusLoopId)?.Name,
-                    BusStopName = _busStopService.FindBusStopByID(e.BusStopId)?.Name
-                }).ToList()
+                Entries = GetEntryViewModel(),
+                Buses = GetBusViewModel(),
+                BusStops = GetBusStopViewModel()
             };
 
             return View(model);
@@ -57,7 +75,7 @@ namespace BusShuttleMVC.Controllers
 
         public IActionResult ManageBuses()
         {
-            return View(_busService.GetAllBuses().Select(t => BusViewModel.FromBus(t)));
+            return View(GetBusViewModel());
         }
 
         [HttpPost]
@@ -156,7 +174,7 @@ namespace BusShuttleMVC.Controllers
             _busRouteService.AddStopToRoute(busRoute, busStop);
 
             return RedirectToAction("ManageRoutes");
-            }
+        }
 
         public IActionResult ViewStopsForRoute(string loopName)
         {
@@ -195,7 +213,7 @@ namespace BusShuttleMVC.Controllers
 
             var existingIsActivatedClaim = (await _userManager.GetClaimsAsync(user))
                 .FirstOrDefault(c => c.Type == "isActivated");
-                
+
             if (existingIsActivatedClaim != null && existingIsActivatedClaim.Value == "true")
             {
                 await _userManager.RemoveClaimAsync(user, existingIsActivatedClaim);
@@ -215,16 +233,7 @@ namespace BusShuttleMVC.Controllers
 
             var model = new ManageEntryViewModel
             {
-                Entries = entries.Select(e => new EntryViewModel
-                {
-                    Timestamp = e.Timestamp,
-                    Boarded = e.Boarded,
-                    LeftBehind = e.LeftBehind,
-                    Driver = e.Driver,
-                    BusNumber = e.BusNumber,
-                    BusLoopName = _busLoopService.FindBusLoopByID(e.BusLoopId)?.Name,
-                    BusStopName = _busStopService.FindBusStopByID(e.BusStopId)?.Name
-                }).ToList()
+                Entries = GetEntryViewModel()
             };
 
             return View(model);
@@ -233,7 +242,7 @@ namespace BusShuttleMVC.Controllers
         [HttpPost]
         public IActionResult DownloadEntriesCSV()
         {
-            var entries = _entryService.GetEntries(); 
+            var entries = _entryService.GetEntries();
             var builder = new StringBuilder();
             builder.AppendLine("Boarded,Left Behind,Bus Stop,Timestamp,Bus Loop,Driver Name,Bus Number");
 

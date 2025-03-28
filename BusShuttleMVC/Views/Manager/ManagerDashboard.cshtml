@@ -1,104 +1,109 @@
-@model BusShuttleMVC.Models.ManageEntryViewModel
+@model BusShuttleMVC.Models.ManagerDashboardViewModel
+
 @{
     ViewData["Title"] = "Manager Dashboard";
 }
 <h1>@ViewData["Title"]</h1>
-<div class="row justify-content-center">
-    <div class="table-responsive">
-        <table class="data-table table table-striped">
-            <thead>
-                <tr>
-                    <th>Boarded</th>
-                    <th>Left Behind</th>
-                    <th>Bus Stop</th>
-                    <th>Timestamp</th>
-                    <th>Bus Loop</th>
-                    <th>Driver Name</th>
-                    <th>Bus Number</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var entry in Model.Entries)
-                {
+<div class="container">
+    <div class="row">
+        <div class="col-12 foreground  my-3">
+            <table class="data-table table table-striped">
+                <thead>
                     <tr>
-                        <td>@entry.Boarded</td>
-                        <td>@entry.LeftBehind</td>
-                        <td>@entry.BusStopName</td>
-                        <td>@entry.Timestamp</td>
-                        <td>@entry.BusLoopName</td>
-                        <td>@entry.Driver</td>
-                        <td>@entry.BusNumber</td>
+                        <th>Time</th>
+                        <th>Loop</th>
+                        <th>Stop</th>
+                        <th>Bus</th>
+                        <th>Boarded</th>
+                        <th>Left Behind</th>
+                        <th>Driver Name</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var entry in Model.Entries)
+                    {
+                        <tr>
+                            <td>@entry.Timestamp</td>
+                            <td>@entry.BusLoopName</td>
+                            <td>@entry.BusStopName</td>
+                            <td>@entry.BusNumber</td>
+                            <td>@entry.Boarded</td>
+                            <td>@entry.LeftBehind</td>
+                            <td>@entry.Driver</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="row py-3 text-center">
+                <div class="col-md-6 my-2">
+                    <form asp-controller="Manager" asp-action="DownloadEntriesCSV" method="post">
+                        <button type="submit" class="btn button-primary">Download Entries</button>
+                    </form>
+                </div>
+                <div class="col-md-6 my-2">
+                    <a asp-controller="Manager" asp-action="ManageEntries">
+                        <button class="btn button-primary">Manage Entries</button>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="container-fluid py-3 text-center">
-      <div class="row">
-        <div class="col-md-6 my-2">
-        <form asp-controller="Manager" asp-action="DownloadEntriesCSV" method="post">
-            <button type="submit" class="btn button-primary">Download Entries</button>
-        </form>
+    <div class="row foreground text-center">
+        <div class="card-header text-center ">
+            <h2>Bus Stops</h2>
         </div>
-        <div class="col-md-6 my-2">
-        <a asp-controller="Manager" asp-action="ManageEntries">
-            <button class="btn button-primary">Manage Entries</button>
-        </a>
+
+        <div class="row py-3">
+            <div class="col-md-6 my-2">
+                Map coming soon...
+            </div>
+            <div class="col-md-6 my-2">
+                @Html.Partial("ManageBusStops", Model.BusStops)
+            </div>
         </div>
-      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="foreground my-3">
+                <div class="card-header">
+                    <h2>Manage drivers</h2>
+                </div>
+                <div class="card-body text-center">
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="foreground my-3">
+                <div class="card-header">
+                    <h2>Buses</h2>
+                </div>
+                <div class="card-body text-center">
+                    @Html.Partial("ManageBuses", Model.Buses)
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="col-md-6">
-        <div class="card my-3">
-            <div class="card-header">
-                <h2>Activate or deactivate your drivers:</h2>
-            </div>
-            <div class="card-body text-center">
-                <a asp-controller="Manager" asp-action="ManageDrivers">
-                    <button class="btn button-primary">Manage Drivers</button>
-                </a>
-            </div>
+    <div class="foreground my-3">
+        <div class="card-header">
+            <h2>Manage Loops</h2>
         </div>
-
-        <div class="card my-3">
-            <div class="card-header">
-                <h2>First, create some buses:</h2>
-            </div>
-            <div class="card-body text-center">
-                <a asp-controller="Manager" asp-action="ManageBuses">
-                    <button class="btn button-primary">Manage Buses</button>
-                </a>
-            </div>
+        <div class="card-body text-center">
+            <a asp-controller="Manager" asp-action="ManageBusLoops">
+                <button class="btn button-primary">Manage Loops</button>
+            </a>
         </div>
-        <div class="card my-3">
-            <div class="card-header">
-                <h2>Then, create some loops:</h2>
-            </div>
-            <div class="card-body text-center">
-                <a asp-controller="Manager" asp-action="ManageBusLoops">
-                    <button class="btn button-primary">Manage Loops</button>
-                </a>
-            </div>
+    </div>
+    <div class="foreground my-3">
+        <div class="card-header">
+            <h2>Manage Routes</h2>
         </div>
-        <div class="card my-3">
-            <div class="card-header">
-                <h2>Then, create some stops for the loops:</h2>
-            </div>
-            <div class="card-body text-center">
-                <a asp-controller="Manager" asp-action="ManageBusStops">
-                    <button class="btn button-primary">Manage Stops</button>
-                </a>
-            </div>
-        </div>
-        <div class="card my-3">
-            <div class="card-header">
-                <h2>Finally, create some routes:</h2>
-            </div>
-            <div class="card-body text-center">
-                <a asp-controller="Manager" asp-action="ManageRoutes">
-                    <button class="btn button-primary">Manage Routes</button>
-                </a>
-            </div>
+        <div class="card-body text-center">
+            <a asp-controller="Manager" asp-action="ManageRoutes">
+                <button class="btn button-primary">Manage Routes</button>
+            </a>
         </div>
     </div>
 </div>
