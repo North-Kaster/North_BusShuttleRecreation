@@ -75,7 +75,7 @@ namespace BusShuttleMVC.Controllers
 
         public IActionResult ManageBuses()
         {
-            return View(GetBusViewModels());
+            return View(GetBusViewModel());
         }
 
         [HttpPost]
@@ -233,7 +233,7 @@ namespace BusShuttleMVC.Controllers
 
             var model = new ManageEntryViewModel
             {
-                Entries = GetEntryViewModels()
+                Entries = GetEntryViewModel()
             };
 
             return View(model);
