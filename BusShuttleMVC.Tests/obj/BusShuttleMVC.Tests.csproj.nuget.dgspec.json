@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\north\\Documents\\00_College\\Computer Science\\CS420_Dotnet-Web\\finalProject_BusShuttleRecreation\\busshuttlemvc.tests\\BusShuttleMVC.Tests.csproj": {}
+    "C:\\Users\\north\\Documents\\00_College\\Computer Science\\CS420_Dotnet-Web\\finalProject_BusShuttleRecreation\\BusShuttleMVC.Tests\\busshuttlemvc.tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\north\\Documents\\00_College\\Computer Science\\CS420_Dotnet-Web\\finalProject_BusShuttleRecreation\\busshuttlemvc.tests\\BusShuttleMVC.Tests.csproj": {
+    "C:\\Users\\north\\Documents\\00_College\\Computer Science\\CS420_Dotnet-Web\\finalProject_BusShuttleRecreation\\BusShuttleMVC.Tests\\busshuttlemvc.tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\north\\Documents\\00_College\\Computer Science\\CS420_Dotnet-Web\\finalProject_BusShuttleRecreation\\busshuttlemvc.tests\\BusShuttleMVC.Tests.csproj",
-        "projectName": "BusShuttleMVC.Tests",
-        "projectPath": "C:\\Users\\north\\Documents\\00_College\\Computer Science\\CS420_Dotnet-Web\\finalProject_BusShuttleRecreation\\busshuttlemvc.tests\\BusShuttleMVC.Tests.csproj",
+        "projectUniqueName": "C:\\Users\\north\\Documents\\00_College\\Computer Science\\CS420_Dotnet-Web\\finalProject_BusShuttleRecreation\\BusShuttleMVC.Tests\\busshuttlemvc.tests.csproj",
+        "projectName": "busshuttlemvc.tests",
+        "projectPath": "C:\\Users\\north\\Documents\\00_College\\Computer Science\\CS420_Dotnet-Web\\finalProject_BusShuttleRecreation\\BusShuttleMVC.Tests\\busshuttlemvc.tests.csproj",
         "packagesPath": "C:\\Users\\north\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\north\\Documents\\00_College\\Computer Science\\CS420_Dotnet-Web\\finalProject_BusShuttleRecreation\\busshuttlemvc.tests\\obj\\",
+        "outputPath": "C:\\Users\\north\\Documents\\00_College\\Computer Science\\CS420_Dotnet-Web\\finalProject_BusShuttleRecreation\\BusShuttleMVC.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\north\\AppData\\Roaming\\NuGet\\NuGet.Config"
