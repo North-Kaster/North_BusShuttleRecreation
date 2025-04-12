@@ -20,7 +20,7 @@ namespace BusShuttleMVC.Services
         {
             return _context.BusRoutes.Find(id);
         }
-        public void AddBusRoute(BusRoute busRoute)
+        public void CreateBusRoute(BusRoute busRoute)
         {
             _context.BusRoutes.Add(busRoute);
             _context.SaveChanges();

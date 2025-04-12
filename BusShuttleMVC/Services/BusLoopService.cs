@@ -26,7 +26,7 @@ namespace BusShuttleMVC.Services
                    .FirstOrDefault(bl => bl.Id == id);
         }
 
-        public void AddBusLoop(BusLoop busLoop)
+        public void CreateBusLoop(BusLoop busLoop)
         {
             _context.BusLoops.Add(busLoop);
             _context.SaveChanges();
@@ -37,7 +37,7 @@ namespace BusShuttleMVC.Services
             _context.BusLoops.Remove(busLoop);
             _context.SaveChanges();
         }
-         public void AddBusRouteToLoop(Guid busLoopId, BusRoute busRoute)
+         public void AssignRouteToLoop(Guid busLoopId, BusRoute busRoute)
         {
             var busLoop = FindBusLoopByID(busLoopId);
             if (busLoop != null)

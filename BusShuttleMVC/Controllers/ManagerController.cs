@@ -79,10 +79,10 @@ namespace BusShuttleMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddBus(int busNumber)
+        public IActionResult CreateBus(int busNumber)
         {
             var bus = new Bus(Guid.NewGuid(), 0) { BusNumber = busNumber };
-            _busService.AddBus(bus);
+            _busService.CreateBus(bus);
             return RedirectToAction("ManageBuses");
         }
         [HttpPost]
@@ -100,10 +100,10 @@ namespace BusShuttleMVC.Controllers
         {
             return View(_busStopService.GetAllBusStops().Select(t => BusStopViewModel.FromBusStop(t)));
         }
-        public IActionResult AddBusStop(string busStopName, double latitude, double longitude)
+        public IActionResult CreateBusStop(string busStopName, double latitude, double longitude)
         {
             var busStop = new BusStop(Guid.NewGuid(), busStopName, latitude, longitude);
-            _busStopService.AddBusStop(busStop);
+            _busStopService.CreateBusStop(busStop);
             return RedirectToAction("ManageBusStops");
         }
         public IActionResult DeleteBusStop(Guid id)
@@ -119,13 +119,13 @@ namespace BusShuttleMVC.Controllers
         {
             return View(_busLoopService.GetAllBusLoops().Select(t => BusLoopViewModel.FromBusLoop(t)));
         }
-        public IActionResult AddBusLoop(string busLoopName)
+        public IActionResult CreateBusLoop(string busLoopName)
         {
             var busRoute = new BusRoute(Guid.NewGuid());
-            _busRouteService.AddBusRoute(busRoute);
+            _busRouteService.CreateBusRoute(busRoute);
 
             var busLoop = new BusLoop(Guid.NewGuid(), busLoopName, busRoute);
-            _busLoopService.AddBusLoop(busLoop);
+            _busLoopService.CreateBusLoop(busLoop);
 
             return RedirectToAction("ManageBusLoops");
         }

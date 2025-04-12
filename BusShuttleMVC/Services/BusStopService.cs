@@ -22,7 +22,7 @@ namespace BusShuttleMVC.Services
             return _context.BusStops.Find(id);
         }
 
-        public void AddBusStop(BusStop busStop)
+        public void CreateBusStop(BusStop busStop)
         {
             _context.BusStops.Add(busStop);
             _context.SaveChanges();

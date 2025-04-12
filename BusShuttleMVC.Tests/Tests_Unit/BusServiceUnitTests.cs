@@ -56,10 +56,10 @@ namespace BusShuttleMVC.Tests.Services
         }
 
         [TestMethod]
-        public void Test_AddBus_adds_to_context()
+        public void Test_CreateBus_adds_to_context()
         {
 
-            _busService.AddBus(new Bus(Guid.NewGuid(), 123));
+            _busService.CreateBus(new Bus(Guid.NewGuid(), 123));
 
             _mockDbSet.Verify(m => m.Add(It.IsAny<Bus>()), Times.Once());
             _mockContext.Verify(m => m.SaveChanges(), Times.Once());
