@@ -122,7 +122,7 @@ namespace BusShuttleMVC.Controllers
         public IActionResult CreateBusLoop(string busLoopName)
         {
             var busRoute = new BusRoute(Guid.NewGuid());
-            _busRouteService.AddBusRoute(busRoute);
+            _busRouteService.CreateBusRoute(busRoute);
 
             var busLoop = new BusLoop(Guid.NewGuid(), busLoopName, busRoute);
             _busLoopService.CreateBusLoop(busLoop);

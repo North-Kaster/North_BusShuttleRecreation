@@ -6,7 +6,7 @@ namespace BusShuttleMVC.Services
     {
         List<BusRoute> GetAllBusRoutes();
         BusRoute? FindBusRouteByID(Guid id);
-        void AddBusRoute(BusRoute busRoute);
+        void CreateBusRoute(BusRoute busRoute);
         void DeleteBusRoute(BusRoute busRoute);
         void UpdateBusRoute(BusRoute busRoute);
         void AddStopToRoute(BusRoute busRoute, BusStop busStop);
