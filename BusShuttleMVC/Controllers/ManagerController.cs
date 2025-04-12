@@ -119,13 +119,13 @@ namespace BusShuttleMVC.Controllers
         {
             return View(_busLoopService.GetAllBusLoops().Select(t => BusLoopViewModel.FromBusLoop(t)));
         }
-        public IActionResult AddBusLoop(string busLoopName)
+        public IActionResult CreateBusLoop(string busLoopName)
         {
             var busRoute = new BusRoute(Guid.NewGuid());
             _busRouteService.AddBusRoute(busRoute);
 
             var busLoop = new BusLoop(Guid.NewGuid(), busLoopName, busRoute);
-            _busLoopService.AddBusLoop(busLoop);
+            _busLoopService.CreateBusLoop(busLoop);
 
             return RedirectToAction("ManageBusLoops");
         }

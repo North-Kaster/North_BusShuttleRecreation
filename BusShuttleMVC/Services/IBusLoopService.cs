@@ -6,7 +6,7 @@ namespace BusShuttleMVC.Services
     {
         List<BusLoop> GetAllBusLoops();
         BusLoop? FindBusLoopByID(Guid id);
-        void AddBusLoop(BusLoop busLoop);
+        void CreateBusLoop(BusLoop busLoop);
         void DeleteBusLoop(BusLoop busLoop);
         void AssignRouteToLoop(Guid busLoopId, BusRoute busRoute);
         BusLoop FindBusLoopByNameWithStops(string loopName);
