@@ -18,7 +18,7 @@ namespace BusShuttleMVC.Services
         {
             return _context.Buses.Find(id);
         }
-        public void AddBus(Bus bus)
+        public void CreateBus(Bus bus)
         {
             _context.Buses.Add(bus);
             _context.SaveChanges();

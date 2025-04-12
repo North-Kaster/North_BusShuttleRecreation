@@ -6,7 +6,7 @@ namespace BusShuttleMVC.Services
     {
         List<Bus> GetAllBuses();
         Bus? FindBusByID(Guid id);
-        void AddBus(Bus bus);
+        void CreateBus(Bus bus);
         void DeleteBus(Bus bus);
     }
 }

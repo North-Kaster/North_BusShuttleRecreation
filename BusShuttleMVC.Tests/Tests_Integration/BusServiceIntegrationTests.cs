@@ -42,7 +42,7 @@ namespace BusShuttleMVC.Tests.Services
 
             // Add a new bus
             var newBus = new Bus(Guid.NewGuid(), 123);
-            _busService.AddBus(newBus);
+            _busService.CreateBus(newBus);
 
             // Test GetAllBuses. Should now have 4 buses
             getAllBusesResult = _busService.GetAllBuses();
