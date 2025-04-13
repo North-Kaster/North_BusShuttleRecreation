@@ -128,6 +128,12 @@ namespace BusShuttleMVC.Controllers
 
             return View(model);
         }
+
+        public IActionResult AssignRouteToLoop(Guid busLoopId, Guid busRouteId)
+        {
+            _busLoopService.AssignRouteToLoop(busLoopId, busRouteId);
+            return RedirectToAction("ManageBusLoops");
+        }
         public IActionResult CreateBusLoop(string busLoopName)
         {
             var busRoute = new BusRoute(Guid.NewGuid());

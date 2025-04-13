@@ -17,6 +17,9 @@
             <th>
                 Name
             </th>
+            <td>
+                Route
+            </td>
             <th>
                 Manage
             </th>
@@ -33,29 +36,25 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
+                    <form asp-action="AssignRouteToLoop" method="post">
+                        <input type="hidden" name="busLoopId" value="@item.Id" />
+                        <select name="busRouteId" class="standard-select-input">
+                            <option value="" disabled selected hidden>@Html.DisplayFor(modelItem => item.BusRouteId)</option>
+                            @foreach (var route in Model.BusRoutes)
+                            {
+                                <option value="@route.Id">@route.Id</option>
+                            }
+                        </select>
+                        <button type="submit" class="btn button-primary">Assign Route</button>
+                    </form>
+                </td>
+                <td>
                     <form asp-action="DeleteBusLoop" method="post">
                         <input type="hidden" name="id" value="@item.Id" />
                         <button type="submit" class="btn delete-button"></button>
                     </form>
                     
                 </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<h2>List of all Bus Route Ids</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Id</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var route in Model.BusRoutes)
-        {
-            <tr>
-                <td>@route.Id</td>
             </tr>
         }
     </tbody>
