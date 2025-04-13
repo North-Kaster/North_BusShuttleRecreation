@@ -136,10 +136,7 @@ namespace BusShuttleMVC.Controllers
         }
         public IActionResult CreateBusLoop(string busLoopName)
         {
-            var busRoute = new BusRoute(Guid.NewGuid());
-            _busRouteService.CreateBusRoute(busRoute);
-
-            var busLoop = new BusLoop(Guid.NewGuid(), busLoopName, busRoute);
+            var busLoop = new BusLoop(Guid.NewGuid(), busLoopName);
             _busLoopService.CreateBusLoop(busLoop);
 
             return RedirectToAction("ManageBusLoops");

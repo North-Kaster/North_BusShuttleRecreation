@@ -17,9 +17,9 @@
             <th>
                 Name
             </th>
-            <td>
-                Route
-            </td>
+            <th>
+                Assigned Route
+            </th>
             <th>
                 Manage
             </th>
@@ -39,7 +39,15 @@
                     <form asp-action="AssignRouteToLoop" method="post">
                         <input type="hidden" name="busLoopId" value="@item.Id" />
                         <select name="busRouteId" class="standard-select-input">
-                            <option value="" disabled selected hidden>@Html.DisplayFor(modelItem => item.BusRouteId)</option>
+                            <option value="" disabled selected hidden>
+                                @if (item.BusRouteId.HasValue)
+                                    {
+                                        @Html.DisplayFor(modelItem => item.BusRouteId)
+                                    } else 
+                                    {
+                                        <span>No route assigned to this loop.</span>
+                                    }
+                                </option>
                             @foreach (var route in Model.BusRoutes)
                             {
                                 <option value="@route.Id">@route.Id</option>
