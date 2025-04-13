@@ -154,9 +154,19 @@ namespace BusShuttleMVC.Controllers
         {
             var busLoops = _busLoopService.GetAllBusLoops().Select(t => BusLoopViewModel.FromBusLoop(t));
             var busStops = _busStopService.GetAllBusStops().Select(t => BusStopViewModel.FromBusStop(t));
-            var busRouteViewModel = new BusRouteViewModel { BusLoops = busLoops, BusStops = busStops };
+            var busRoutes = _busRouteService.GetAllBusRoutes().Select(t => BusRouteViewModel.FromBusRoute(t));
+
+            var busRouteViewModel = new BusRouteViewModel { BusLoops = busLoops, BusStops = busStops, BusRoutes = busRoutes };
             return View(busRouteViewModel);
         }
+
+        public IActionResult CreateBusRoute(string busRouteName)
+        {
+            var busRoute = new BusRoute(Guid.NewGuid(), busRouteName);
+            _busRouteService.CreateBusRoute(busRoute);
+            return RedirectToAction("ManageBusRoutes");
+        }
+        
         [HttpPost]
         public IActionResult AddStopToRoute(Guid busLoopId, Guid busStopId)
         {

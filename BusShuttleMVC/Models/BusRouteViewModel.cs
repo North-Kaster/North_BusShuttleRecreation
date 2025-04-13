@@ -11,10 +11,12 @@ namespace BusShuttleMVC.Models
         {
             BusLoops = new List<BusLoopViewModel>();
             BusStops = new List<BusStopViewModel>();
+            BusRoutes = new List<BusRouteViewModel>();
         }
 
         public IEnumerable<BusLoopViewModel> BusLoops { get; set; }
         public IEnumerable<BusStopViewModel> BusStops { get; set; }
+        public IEnumerable<BusRouteViewModel> BusRoutes { get; set; } 
 
         public static BusRouteViewModel FromBusRoute(BusRoute busRoute)
         {
