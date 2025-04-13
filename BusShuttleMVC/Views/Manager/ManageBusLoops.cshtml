@@ -40,9 +40,9 @@
                         <input type="hidden" name="busLoopId" value="@item.Id" />
                         <select name="busRouteId" class="standard-select-input">
                             <option value="" disabled selected hidden>
-                                @if (item.BusRouteId.HasValue)
+                                @if (item.LoopBusRouteId.HasValue)
                                     {
-                                        @Html.DisplayFor(modelItem => item.BusRouteId)
+                                        @Html.DisplayFor(modelItem => item.LoopBusRouteName)
                                     } else 
                                     {
                                         <span>No route assigned to this loop.</span>

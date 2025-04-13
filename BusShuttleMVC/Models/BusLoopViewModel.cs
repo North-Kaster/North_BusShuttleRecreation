@@ -11,7 +11,8 @@ namespace BusShuttleMVC.Models
         // Name will always be initialized on creation
         #pragma warning disable CS8618
         public string Name { get; set; }
-        public Guid? BusRouteId { get; set; }
+        public Guid? LoopBusRouteId { get; set; }
+        public string? LoopBusRouteName { get; set; }
 
         public static BusLoopViewModel FromBusLoop(BusLoop busLoop)
         {
@@ -19,7 +20,8 @@ namespace BusShuttleMVC.Models
             {
                 Id = busLoop.Id,
                 Name = busLoop.Name,
-                BusRouteId = busLoop.BusRouteId
+                LoopBusRouteId = busLoop.BusRouteId,
+                LoopBusRouteName = busLoop.LoopBusRoute?.Name
             };
         }
     }

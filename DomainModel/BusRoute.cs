@@ -6,6 +6,7 @@ namespace DomainModel
     public class BusRoute
     {
         public Guid Id { get; set; }
+        public string Name { get; set; }
 
         // Collection navigation property for the join table
         public ICollection<RouteStop> RouteStops { get; set; }
@@ -18,6 +19,7 @@ namespace DomainModel
         public BusRoute(Guid id)
         {
             Id = id;
+            Name = string.Empty;
             RouteStops = new List<RouteStop>();
         }
     }
