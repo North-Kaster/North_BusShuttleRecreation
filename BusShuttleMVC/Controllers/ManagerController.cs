@@ -150,7 +150,7 @@ namespace BusShuttleMVC.Controllers
             }
             return RedirectToAction("ManageBusLoops");
         }
-        public IActionResult ManageRoutes()
+        public IActionResult ManageBusRoutes()
         {
             var busLoops = _busLoopService.GetAllBusLoops().Select(t => BusLoopViewModel.FromBusLoop(t));
             var busStops = _busStopService.GetAllBusStops().Select(t => BusStopViewModel.FromBusStop(t));
@@ -185,7 +185,7 @@ namespace BusShuttleMVC.Controllers
 
             _busRouteService.AddStopToRoute(busRoute, busStop);
 
-            return RedirectToAction("ManageRoutes");
+            return RedirectToAction("ManageBusRoutes");
         }
 
         public IActionResult ViewStopsForRoute(string loopName)
