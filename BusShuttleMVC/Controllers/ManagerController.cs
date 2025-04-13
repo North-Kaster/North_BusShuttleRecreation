@@ -117,7 +117,16 @@ namespace BusShuttleMVC.Controllers
         }
         public IActionResult ManageBusLoops()
         {
-            return View(_busLoopService.GetAllBusLoops().Select(t => BusLoopViewModel.FromBusLoop(t)));
+            var busLoops = _busLoopService.GetAllBusLoops().Select(BusLoopViewModel.FromBusLoop);
+            var busRoutes = _busRouteService.GetAllBusRoutes().Select(BusRouteViewModel.FromBusRoute);
+
+            var model = new ManageBusLoopsViewModel
+            {
+                BusLoops = busLoops,
+                BusRoutes = busRoutes
+            };
+
+            return View(model);
         }
         public IActionResult CreateBusLoop(string busLoopName)
         {

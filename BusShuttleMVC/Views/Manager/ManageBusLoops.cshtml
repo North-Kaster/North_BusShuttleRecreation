@@ -1,4 +1,4 @@
-@model IEnumerable<BusShuttleMVC.Models.BusLoopViewModel>
+@model BusShuttleMVC.Models.ManageBusLoopsViewModel
 @{
     ViewData["Title"] = "Manage Bus Loops";
 }
@@ -12,10 +12,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                Id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Name
             </th>
             <th>
                 Manage
@@ -23,7 +23,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.BusLoops)
         {
             <tr>
                 <td>
@@ -39,6 +39,23 @@
                     </form>
                     
                 </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>List of all Bus Route Ids</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var route in Model.BusRoutes)
+        {
+            <tr>
+                <td>@route.Id</td>
             </tr>
         }
     </tbody>

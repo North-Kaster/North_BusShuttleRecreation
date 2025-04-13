@@ -5,6 +5,7 @@ namespace BusShuttleMVC.Models
 {
     public class BusRouteViewModel
     {
+        public Guid Id { get; set; }
         public BusRouteViewModel()
         {
             BusLoops = new List<BusLoopViewModel>();
@@ -13,5 +14,13 @@ namespace BusShuttleMVC.Models
 
         public IEnumerable<BusLoopViewModel> BusLoops { get; set; }
         public IEnumerable<BusStopViewModel> BusStops { get; set; }
+
+        public static BusRouteViewModel FromBusRoute(BusRoute busRoute)
+        {
+            return new BusRouteViewModel
+            {
+                Id = busRoute.Id
+            };
+        }
     }
 }
