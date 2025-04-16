@@ -11,4 +11,15 @@ public class RouteStop
     public BusStop BusStop { get; set; }
 
     public int Order { get; set; } // To keep track of the order of stops in a route
+
+    public RouteStop()
+    {
+    }
+    public RouteStop(Guid id, Guid busRouteId, Guid busStopId, int order)
+    {
+        Id = id;
+        BusRouteId = busRouteId;
+        BusStopId = busStopId;
+        Order = order;
+    }
 }

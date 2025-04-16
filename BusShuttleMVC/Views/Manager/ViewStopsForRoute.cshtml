@@ -1,5 +1,10 @@
-@model IEnumerable<DomainModel.BusStop>
+@model IEnumerable<BusRouteStopViewModel>
 
+@if (Model == null || !Model.Any())
+{
+    <h2 class="text-center pt-5">No bus stops have been assigned to this route.</h2>
+    return;
+}
 <table class="table table-striped">
     <thead>
         <tr>
@@ -12,7 +17,7 @@
         @foreach (var stop in Model)
         {
             <tr>
-                <td>@stop.Name</td>
+                <td>@stop.BusStopName</td>
                 <td>@stop.Latitude</td>
                 <td>@stop.Longitude</td>
             </tr>

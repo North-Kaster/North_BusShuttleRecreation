@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using DomainModel;
 using BusShuttleMVC.Data;
 
@@ -45,6 +46,21 @@ namespace BusShuttleMVC.Services
 
             busRoute.RouteStops.Add(routeStop);
             _context.SaveChanges();
+        }
+
+        public List<BusRouteStopViewModel> ViewRouteStops(Guid busRouteId)
+        {
+             return _context.RouteStops
+            .Include(rs => rs.BusStop)
+            .Where(rs => rs.BusRouteId == busRouteId)
+            .Select(rs => new BusRouteStopViewModel
+            {
+                Order = rs.Order,
+                BusStopName = rs.BusStop.Name,
+                Latitude = rs.BusStop.Latitude,
+                Longitude = rs.BusStop.Longitude
+            })
+            .ToList();
         }
     }
 }

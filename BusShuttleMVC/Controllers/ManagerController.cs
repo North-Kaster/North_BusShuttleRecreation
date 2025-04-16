@@ -166,7 +166,7 @@ namespace BusShuttleMVC.Controllers
             _busRouteService.CreateBusRoute(busRoute);
             return RedirectToAction("ManageBusRoutes");
         }
-        
+
         [HttpPost]
         public IActionResult AddStopToRoute(Guid busLoopId, Guid busStopId)
         {
@@ -198,18 +198,11 @@ namespace BusShuttleMVC.Controllers
             return RedirectToAction("ManageBusRoutes");
         }
 
-        public IActionResult ViewStopsForRoute(string loopName)
+        public IActionResult ViewStopsForRoute(Guid busRouteId)
         {
-            var busLoop = _busLoopService.FindBusLoopByNameWithStops(loopName);
+            var busRouteStopViewModels = _busRouteService.ViewRouteStops(busRouteId);
 
-            if (busLoop == null)
-            {
-                return NotFound($"BusLoop with name {loopName} does not exist.");
-            }
-
-            var busStops = busLoop.LoopBusRoute.RouteStops.Select(rs => rs.BusStop);
-
-            return View(busStops);
+            return View(busRouteStopViewModels);
         }
         public async Task<IActionResult> ManageDrivers()
         {

@@ -10,5 +10,7 @@ namespace BusShuttleMVC.Services
         void DeleteBusRoute(BusRoute busRoute);
         void UpdateBusRoute(BusRoute busRoute);
         void AddStopToRoute(BusRoute busRoute, BusStop busStop);
+        List<BusRouteStopViewModel> ViewRouteStops(Guid busRouteId);
+
     }
 }

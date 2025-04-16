@@ -23,11 +23,13 @@
                     @route.Id
                 </td>
                 <td>
-                    @route.Name
+                    <form asp-controller="Manager" asp-action="ViewStopsForRoute" method="get">
+                        <button type="submit" value="@route.Id" name="busRouteId" class="btn button-primary">@route.Name</button>
+                    </form>
                 </td>
             </tr>
-        }     
-        
+        }
+
     </tbody>
 </table>
 
@@ -35,7 +37,9 @@
 <div class="container-sm">
     <div class="justify-content-center text-center align-items-center">
         <form method="post" asp-action="AddStopToRoute" asp-controller="Manager">
-            <label for="choose-loop"><h1>Select a loop</h1></label>
+            <label for="choose-loop">
+                <h1>Select a loop</h1>
+            </label>
             <div id="choose-loop" class="form-group my-3 text-center">
                 <select name="busLoopId" class="standard-select-input" required>
                     @foreach (var loop in Model.BusLoops)
@@ -45,7 +49,9 @@
                 </select>
             </div>
             <div class="form-group my-3 text-center">
-                <label for="AddStop"><h1>Choose a stop to add</h1></label>
+                <label for="AddStop">
+                    <h1>Choose a stop to add</h1>
+                </label>
                 <select id="AddStop" name="busStopId" class="standard-select-input" required>
                     @foreach (var stop in Model.BusStops)
                     {
@@ -55,18 +61,5 @@
                 <input type="submit" value="Add stop" class="btn button-primary my-3" />
             </div>
         </form>
-        <div class="form-group my-3 text-center pt-5">
-            <label for="viewStops"><h1>Choose a loop to view the stops on that route</h1></label>
-            <form id="viewStops" method="get" asp-action="ViewStopsForRoute" asp-controller="Manager">
-                <select name="loopName" class="standard-select-input" required>
-                    @foreach (var loop in Model.BusLoops)
-                    {
-                        <option value="@loop.Name">@loop.Name</option>
-                    }
-                </select>
-
-                <input type="submit" value="View stops" class="btn button-primary my-3" />
-            </form>
-        </div>
     </div>
 </div>
