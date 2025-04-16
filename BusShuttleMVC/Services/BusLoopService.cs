@@ -46,13 +46,5 @@ namespace BusShuttleMVC.Services
                 _context.SaveChanges();
             }
         }
-        public BusLoop FindBusLoopByNameWithStops(string loopName)
-        {
-            return _context.BusLoops
-                        .Include(bl => bl.LoopBusRoute)
-                        .ThenInclude(br => br.RouteStops)
-                        .ThenInclude(rs => rs.BusStop)
-                        .FirstOrDefault(bl => bl.Name == loopName);
-        }
     }
 }
