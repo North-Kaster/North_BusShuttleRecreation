@@ -37,14 +37,14 @@
 <div class="container-sm">
     <div class="justify-content-center text-center align-items-center">
         <form method="post" asp-action="AddStopToRoute" asp-controller="Manager">
-            <label for="choose-loop">
-                <h1>Select a loop</h1>
+            <label for="choose-route">
+                <h1>Select a route</h1>
             </label>
-            <div id="choose-loop" class="form-group my-3 text-center">
-                <select name="busLoopId" class="standard-select-input" required>
-                    @foreach (var loop in Model.BusLoops)
+            <div id="choose-route" class="form-group my-3 text-center">
+                <select name="busRouteId" class="standard-select-input" required>
+                    @foreach (var route in Model.BusRoutes)
                     {
-                        <option value="@loop.Id">@loop.Name</option>
+                        <option value="@route.Id">@route.Name</option>
                     }
                 </select>
             </div>

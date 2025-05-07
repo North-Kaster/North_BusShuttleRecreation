@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xP63N/OtviuM6UbUE0uMz/t/Ip6iadvjoJtVBVK/NpAUUv9KPo4S/hupTVK/1yGvydqVPOh3BEtCWxJWv+35+w==",
+  "dgSpecHash": "YT3wzqIec+pIQG3oDxCzqyiIryjlGJuJPALyyE6B+ol+6t8cFtWeJ1kXGbJ+YXirjHO9GaWjOENpHnDtA0IODQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\north\\Documents\\00_College\\Computer Science\\CS420_Dotnet-Web\\finalProject_BusShuttleRecreation\\busshuttlemvc.tests\\BusShuttleMVC.Tests.csproj",
+  "projectFilePath": "C:\\Users\\north\\Documents\\00_College\\Computer Science\\CS420_Dotnet-Web\\finalProject_BusShuttleRecreation\\BusShuttleMVC.Tests\\busshuttlemvc.tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\north\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\north\\.nuget\\packages\\coverlet.collector\\6.0.0\\coverlet.collector.6.0.0.nupkg.sha512",

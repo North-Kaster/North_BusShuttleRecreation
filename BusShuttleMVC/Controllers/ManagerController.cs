@@ -168,21 +168,12 @@ namespace BusShuttleMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddStopToRoute(Guid busLoopId, Guid busStopId)
+        public IActionResult AddStopToRoute(Guid busRouteId, Guid busStopId)
         {
-            var busLoop = _busLoopService.FindBusLoopByID(busLoopId);
-
-            // Some checks I made for debugging purposes. Have proven to be useful to keep around
-            if (busLoop == null)
-            {
-                _logger.LogError($"BusLoop with ID {busLoopId} does not exist.");
-                return NotFound();
-            }
-
-            var busRoute = busLoop.LoopBusRoute;
+            var busRoute = _busRouteService.FindBusRouteByID(busRouteId);
             if (busRoute == null)
             {
-                _logger.LogError($"BusRoute for BusLoop with ID {busLoopId} does not exist.");
+                _logger.LogError($"BusRoute with {busRouteId} does not exist.");
                 return NotFound();
             }
 
