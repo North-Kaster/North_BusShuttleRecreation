@@ -13,6 +13,9 @@
             <th>
                 Name
             </th>
+            <th>
+                Manage
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -23,8 +26,14 @@
                     @route.Id
                 </td>
                 <td>
-                    <form asp-controller="Manager" asp-action="ViewStopsForRoute" method="get">
+                    <form asp-controller="Manager" asp-action="ManageRouteStops" method="get">
                         <button type="submit" value="@route.Id" name="busRouteId" class="btn button-primary">@route.Name</button>
+                    </form>
+                </td>
+                <td>
+                    <form asp-action="DeleteBusRoute" method="post">
+                        <input type="hidden" name="busRouteId" value="@route.Id" />
+                        <button type="submit" class="btn delete-button"></button>
                     </form>
                 </td>
             </tr>

@@ -167,6 +167,23 @@ namespace BusShuttleMVC.Controllers
             return RedirectToAction("ManageBusRoutes");
         }
 
+        public IActionResult DeleteBusRoute(Guid busRouteId)
+        { 
+            _logger.LogError($"{busRouteId}");
+            var busRoute = _busRouteService.FindBusRouteByID(busRouteId);
+            if (busRoute != null)
+            {
+                _busRouteService.DeleteBusRoute(busRoute);
+            }
+            else
+            {
+                _logger.LogError($"busRouteId = {busRouteId}. busRoute = {busRoute}");
+                return NotFound();
+            }
+            
+            return RedirectToAction("ManageBusRoutes");
+        }
+
         [HttpPost]
         public IActionResult AddStopToRoute(Guid busRouteId, Guid busStopId)
         {
@@ -189,7 +206,7 @@ namespace BusShuttleMVC.Controllers
             return RedirectToAction("ManageBusRoutes");
         }
 
-        public IActionResult ViewStopsForRoute(Guid busRouteId)
+        public IActionResult ManageRouteStops(Guid busRouteId)
         {
             var busRouteStopViewModels = _busRouteService.ViewRouteStops(busRouteId);
 
